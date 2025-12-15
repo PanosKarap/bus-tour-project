@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import monitorImage from "../assets/passenger/passenger-screen.png";
-import bagImage from "../assets/bag.png";
+import bagImage from "../assets/bag.svg";
+import mapImage from "../assets/map.svg";
+import marker from "../assets/marker.svg";
 
 // Import the Modal Component
 import Modal from "../components/Modal";
 
 // Import Videos
-import townVideo1 from "../assets/busbackground/BusTownClosed1.mp4";
-import townVideo2 from "../assets/busbackground/BusTownClosed2.mp4";
-import townVideo3 from "../assets/busbackground/BusTownClosed3.mp4";
+import BusTownClosed1 from "../assets/busbackground/BusTownClosed1.mp4";
+import BusTownClosed2 from "../assets/busbackground/BusTownClosed2.mp4";
+import BusTownClosed3 from "../assets/busbackground/BusTownClosed3.mp4";
+import BusTownOpen1 from "../assets/busbackground/BusTownOpen1.mp4";
+import BusTownOpen3 from "../assets/busbackground/BusTownOpen3.mp4";
 
 export default function HomeScreen({
   onPassengerScreen,
@@ -19,28 +23,45 @@ export default function HomeScreen({
   onCloseDeliveryModal,
   onConsumeItem,
 }) {
-  const [currentScenario, setCurrentScenario] = useState("town1"); // Κρατάει την τρέχουσα πόλη
-  const [isBagOpen, setIsBagOpen] = useState(false); // Ελέγχει αν το modal της τσάντας είναι ανοιχτό
+  const [currentScenario, setCurrentScenario] = useState("insideClosedTown1");
+  const [isBagOpen, setIsBagOpen] = useState(false);
 
   let videoSource;
   let layoutClass;
 
-  if (currentScenario === "town1") {
-    videoSource = townVideo1;
-  } else if (currentScenario === "town2") {
-    videoSource = townVideo2;
+  if (currentScenario === "insideClosedTown1") {
+    videoSource = BusTownClosed1;
+  } else if (currentScenario === "insideClosedTown2") {
+    videoSource = BusTownClosed2;
     layoutClass = "layout-town2";
-  } else {
-    videoSource = townVideo3;
+  } else if (currentScenario === "insideClosedTown3") {
+    videoSource = BusTownClosed3;
+    layoutClass = "layout-town3";
+  } else if (currentScenario === "outsideTown1") {
+    videoSource = BusTownOpen1;
+  } else if (currentScenario === "outsideTown2") {
+    videoSource = BusTownClosed2;
+  } else if (currentScenario === "outsideTown3") {
+    videoSource = BusTownOpen3;
   }
 
-  // Αλλάζει την πόλη και καλεί την onTravel συνάρτηση για έλεγχο ύπαρξης κάποιας παραλαβής
-  const handleVideoSwitch = () => {
-    if (currentScenario === "town1") setCurrentScenario("town2");
-    else if (currentScenario === "town2") setCurrentScenario("town3");
-    else setCurrentScenario("town1");
-
-    onTravel?.();
+  const handleVideoSwitchToTown1 = () => {
+    if (currentScenario !== "insideClosedTown1") {
+      setCurrentScenario("insideClosedTown1");
+      onTravel?.();
+    }
+  };
+  const handleVideoSwitchToTown2 = () => {
+    if (currentScenario !== "insideClosedTown2") {
+      setCurrentScenario("insideClosedTown2");
+      onTravel?.();
+    }
+  };
+  const handleVideoSwitchToTown3 = () => {
+    if (currentScenario !== "insideClosedTown3") {
+      setCurrentScenario("insideClosedTown3");
+      onTravel?.();
+    }
   };
 
   return (
@@ -57,20 +78,37 @@ export default function HomeScreen({
         />
 
         <div className={`overlay-content ${layoutClass}`}>
-          <button
-            style={{
-              position: "absolute",
-              top: 20,
-              left: 20,
-              zIndex: 100,
-              pointerEvents: "auto",
-            }}
-            onClick={handleVideoSwitch}
-          >
-            Αλλαγή Πόλης
-          </button>
+          {/* --- Οθόνες --- */}
 
-          {/* Οθόνες */}
+          {/* Χάρτης */}
+          <div className="map-wrapper map-position">
+            {/* Διαδρομή χάρτη και το πλαίσιο του */}
+            <img src={mapImage} alt="Map" className="actual-map-image" />
+
+            {/* Marker πρώτης πόλης */}
+            <img
+              src={marker}
+              alt="Stop 1"
+              className="map-pin pin-1"
+              onClick={handleVideoSwitchToTown1}
+            />
+
+            {/* Marker δεύτερης πόλης */}
+            <img
+              src={marker}
+              alt="Stop 2"
+              className="map-pin pin-2"
+              onClick={handleVideoSwitchToTown2}
+            />
+
+            {/* Marker τρίτης πόλης */}
+            <img
+              src={marker}
+              alt="Stop 3"
+              className="map-pin pin-3"
+              onClick={handleVideoSwitchToTown3}
+            />
+          </div>
 
           {/* Αριστερή οθόνη τουρίστα */}
           <img
@@ -103,11 +141,9 @@ export default function HomeScreen({
 
           {/* Συνολικό εικονίδιο τσάντας αγορασμένων αντικειμένων */}
           <div className="bag-container" onClick={() => setIsBagOpen(true)}>
-            {/* Εικονίδιο που απεικονίζει τον αριθμό των αγορασμένων αντικειμένων που έχει γίνει η παραλαβή τους */}
             {purchasedItems.length > 0 && (
               <div className="bag-badge">{purchasedItems.length}</div>
             )}
-            {/* Εικονίδιο τσάντας */}
             <img
               src={bagImage}
               alt="Shopping Bag"
@@ -116,7 +152,9 @@ export default function HomeScreen({
           </div>
         </div>
 
-        {/* Modal που ανοίγει όταν πατήσει ο χρήστης την τσάντα. Ανοίγει μία λίστα με τα αντικείμενα */}
+        {/* --- MODALS --- */}
+
+        {/* Modal Καλαθιού */}
         {isBagOpen && (
           <Modal>
             <h2 style={{ color: "var(--brand-blue)", marginBottom: "20px" }}>
@@ -179,7 +217,6 @@ export default function HomeScreen({
               </div>
             )}
 
-            {/* Κουμπί κλεισίματος modal */}
             <div className="modal-actions" style={{ marginTop: "20px" }}>
               <button
                 className="btn-cancel"
@@ -191,7 +228,7 @@ export default function HomeScreen({
           </Modal>
         )}
 
-        {/* Modal επιβεβαίωσης παράδοσης παραγγελίας. Ανοίγει όταν ο τουρίστας αλλάξει πόλη και είχε κάνει παραγγελία στην προηγούμενη πόλη που βρισκόταν */}
+        {/* Modal Επιβεβαίωσης Παράδοσης */}
         {isDeliveryModalOpen && (
           <Modal>
             <div className="success-modal-content">
@@ -210,7 +247,6 @@ export default function HomeScreen({
               <h2>Παραλαβή Επιτυχής!</h2>
               <p>Τα προϊόντα σας προστέθηκαν στην τσάντα σας.</p>
 
-              {/* Κλείσιμο modal */}
               <button className="btn-add" onClick={onCloseDeliveryModal}>
                 Εντάξει
               </button>
