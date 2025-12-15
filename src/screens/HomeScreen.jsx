@@ -3,16 +3,20 @@ import monitorImage from "../assets/passenger/passenger-screen.png";
 import bagImage from "../assets/bag.svg";
 import mapImage from "../assets/map.svg";
 import marker from "../assets/marker.svg";
+import exit from "../assets/exit.svg";
 
-// Import the Modal Component
+import PassengerScreen from "./Passenger/PassengerScreen";
+
 import Modal from "../components/Modal";
 
-// Import Videos
 import BusTownClosed1 from "../assets/busbackground/BusTownClosed1.mp4";
 import BusTownClosed2 from "../assets/busbackground/BusTownClosed2.mp4";
 import BusTownClosed3 from "../assets/busbackground/BusTownClosed3.mp4";
 import BusTownOpen1 from "../assets/busbackground/BusTownOpen1.mp4";
 import BusTownOpen3 from "../assets/busbackground/BusTownOpen3.mp4";
+import OutsideBusTown1 from "../assets/busbackground/OutsideBusTown1.mp4";
+import OutsideBusTown2 from "../assets/busbackground/OutsideBusTown2.mp4";
+import OutsideBusTown3 from "../assets/busbackground/OutsideBusTown3.mp4";
 
 export default function HomeScreen({
   onPassengerScreen,
@@ -37,12 +41,16 @@ export default function HomeScreen({
   } else if (currentScenario === "insideClosedTown3") {
     videoSource = BusTownClosed3;
     layoutClass = "layout-town3";
-  } else if (currentScenario === "outsideTown1") {
+  } else if (currentScenario === "insideOpenTown1") {
     videoSource = BusTownOpen1;
-  } else if (currentScenario === "outsideTown2") {
-    videoSource = BusTownClosed2;
-  } else if (currentScenario === "outsideTown3") {
+  } else if (currentScenario === "insideOpenTown3") {
     videoSource = BusTownOpen3;
+  } else if (currentScenario === "outsideTown1") {
+    videoSource = OutsideBusTown1;
+  } else if (currentScenario === "outsideTown2") {
+    videoSource = OutsideBusTown2;
+  } else if (currentScenario === "outsideTown3") {
+    videoSource = OutsideBusTown3;
   }
 
   const handleVideoSwitchToTown1 = () => {
@@ -61,6 +69,16 @@ export default function HomeScreen({
     if (currentScenario !== "insideClosedTown3") {
       setCurrentScenario("insideClosedTown3");
       onTravel?.();
+    }
+  };
+
+  const handleVideoSwitchToOutsideTown = () => {
+    if (currentScenario === "insideClosedTown1") {
+      setCurrentScenario("outsideTown1");
+    } else if (currentScenario === "insideClosedTown2") {
+      setCurrentScenario("outsideTown2");
+    } else if (currentScenario === "insideClosedTown3") {
+      setCurrentScenario("outsideTown3");
     }
   };
 
@@ -109,6 +127,14 @@ export default function HomeScreen({
               onClick={handleVideoSwitchToTown3}
             />
           </div>
+
+          {/* Κουμπί εξόδου από το λεωφορείο */}
+          <img
+            src={exit}
+            alt="Exit Bus"
+            className="exit-btn"
+            onClick={handleVideoSwitchToOutsideTown}
+          />
 
           {/* Αριστερή οθόνη τουρίστα */}
           <img
