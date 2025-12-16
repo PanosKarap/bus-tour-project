@@ -869,3 +869,94 @@ body {
   /* We must keep the translate(-50%, -50%) or it will jump position on hover */
   transform: translate(-50%, -50%) scale(1.05);
 }
+
+.layout-town2 .exit-btn {
+  left: 76.7%;
+}
+
+/* --- Tablet Mode (Video Background) --- */
+
+/* 1. The Outer Frame: Centers the video box on the screen */
+.tablet-layout-container {
+  width: 100vw;
+  height: 100vh;
+  background: var(--bg-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* This centers the video vertically and horizontally */
+  overflow: hidden;
+}
+
+/* 2. The Aspect Ratio Box: THE FIX 
+   This box mimics the exact dimensions of the video. 
+   The overlay lives inside here, so percentages relate to the VIDEO, not the WINDOW.
+*/
+.video-aspect-ratio-box {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Locks the shape to standard HD video */
+
+  /* These two lines ensure the video never overflows the screen */
+  max-height: 100vh;
+  max-width: 177.78vh; /* (16 / 9) * 100 = 177.78 */
+}
+
+/* 3. The Video: Just fills the Aspect Box */
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+/* 4. The Anchor: Positioned relative to the Aspect Box */
+.tablet-screen-anchor {
+  position: absolute;
+
+  /* Your previous coordinates (Adjust these slightly if needed now that aspect ratio is locked) */
+  top: 40.1%;
+  left: 27.5%;
+  width: 45%;
+  height: 42%;
+
+  background-color: #33261b;
+  overflow: hidden;
+  z-index: 10;
+  border-radius: 2px;
+}
+
+/* 5. The Content Scaler (Virtual Screen) */
+.tablet-content-scaler {
+  width: 180%;
+  height: 180%;
+
+  /* ΑΛΛΑΓΗ 2: Αυξάνουμε το Scale (από 0.4 σε 0.55) για να γεμίσει σωστά το κενό
+     χωρίς να αφήσει μαύρα κενά γύρω γύρω. 
+     (Υπολογισμός: 1 / 1.8 ≈ 0.55) */
+  transform: scale(0.555);
+  transform-origin: top left;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  /* Background stays here */
+  background: radial-gradient(circle at center, #4a3b30 0%, #33261b 100%);
+
+  scrollbar-width: none;
+  pointer-events: auto;
+}
+
+/* 6. Tablet Overrides (Essential for the scroll fix) */
+.tablet-content-scaler .container {
+  background: transparent !important;
+  min-height: auto !important;
+  height: auto !important;
+  width: 100%;
+  overflow: visible !important;
+  justify-content: flex-start;
+}

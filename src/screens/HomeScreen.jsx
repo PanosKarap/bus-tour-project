@@ -5,8 +5,6 @@ import mapImage from "../assets/map.svg";
 import marker from "../assets/marker.svg";
 import exit from "../assets/exit.svg";
 
-import PassengerScreen from "./Passenger/PassengerScreen";
-
 import Modal from "../components/Modal";
 
 import BusTownClosed1 from "../assets/busbackground/BusTownClosed1.mp4";
@@ -14,25 +12,25 @@ import BusTownClosed2 from "../assets/busbackground/BusTownClosed2.mp4";
 import BusTownClosed3 from "../assets/busbackground/BusTownClosed3.mp4";
 import BusTownOpen1 from "../assets/busbackground/BusTownOpen1.mp4";
 import BusTownOpen3 from "../assets/busbackground/BusTownOpen3.mp4";
-import OutsideBusTown1 from "../assets/busbackground/OutsideBusTown1.mp4";
-import OutsideBusTown2 from "../assets/busbackground/OutsideBusTown2.mp4";
-import OutsideBusTown3 from "../assets/busbackground/OutsideBusTown3.mp4";
 
 export default function HomeScreen({
   onPassengerScreen,
+  onExitBus,
   onDriverScreen,
+  currentScenario,
+  setCurrentScenario,
   purchasedItems = [],
   onTravel,
   isDeliveryModalOpen,
   onCloseDeliveryModal,
   onConsumeItem,
 }) {
-  const [currentScenario, setCurrentScenario] = useState("insideClosedTown1");
   const [isBagOpen, setIsBagOpen] = useState(false);
 
   let videoSource;
   let layoutClass;
 
+  // Εμφανίζει το ανάλογο βίντεο φόντου με βάση το currentScenario
   if (currentScenario === "insideClosedTown1") {
     videoSource = BusTownClosed1;
   } else if (currentScenario === "insideClosedTown2") {
@@ -45,14 +43,9 @@ export default function HomeScreen({
     videoSource = BusTownOpen1;
   } else if (currentScenario === "insideOpenTown3") {
     videoSource = BusTownOpen3;
-  } else if (currentScenario === "outsideTown1") {
-    videoSource = OutsideBusTown1;
-  } else if (currentScenario === "outsideTown2") {
-    videoSource = OutsideBusTown2;
-  } else if (currentScenario === "outsideTown3") {
-    videoSource = OutsideBusTown3;
   }
 
+  // Αλλάζει το βίντεο φόντου όταν ο χρήστης κάνει κλικ σε ένα από τα markers του χάρτη
   const handleVideoSwitchToTown1 = () => {
     if (currentScenario !== "insideClosedTown1") {
       setCurrentScenario("insideClosedTown1");
@@ -69,16 +62,6 @@ export default function HomeScreen({
     if (currentScenario !== "insideClosedTown3") {
       setCurrentScenario("insideClosedTown3");
       onTravel?.();
-    }
-  };
-
-  const handleVideoSwitchToOutsideTown = () => {
-    if (currentScenario === "insideClosedTown1") {
-      setCurrentScenario("outsideTown1");
-    } else if (currentScenario === "insideClosedTown2") {
-      setCurrentScenario("outsideTown2");
-    } else if (currentScenario === "insideClosedTown3") {
-      setCurrentScenario("outsideTown3");
     }
   };
 
@@ -133,7 +116,9 @@ export default function HomeScreen({
             src={exit}
             alt="Exit Bus"
             className="exit-btn"
-            onClick={handleVideoSwitchToOutsideTown}
+            onClick={() => {
+              onExitBus(currentScenario);
+            }}
           />
 
           {/* Αριστερή οθόνη τουρίστα */}
