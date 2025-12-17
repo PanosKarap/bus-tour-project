@@ -1,38 +1,38 @@
-import shop1Icon from "../assets/passenger/shop1.svg";
-import shop2Icon from "../assets/passenger/shop2.svg";
-import shop3Icon from "../assets/passenger/shop3.svg";
+import shop1Icon from "../assets/passenger/order/shop1.svg";
+import shop2Icon from "../assets/passenger/order/shop2.svg";
+import shop3Icon from "../assets/passenger/order/shop3.svg";
 
 // --- CATEGORY ICONS ---
-import coffeeCatIcon from "../assets/passenger/coffee.svg";
-import sandwichCatIcon from "../assets/passenger/sandwich.svg";
-import pizzaCatIcon from "../assets/passenger/pizza.svg";
-import sodaCatIcon from "../assets/passenger/soda.svg";
+import coffeeCatIcon from "../assets/passenger/order/coffee.svg";
+import sandwichCatIcon from "../assets/passenger/order/sandwich.svg";
+import pizzaCatIcon from "../assets/passenger/order/pizza.svg";
+import sodaCatIcon from "../assets/passenger/order/soda.svg";
 
 // =====================================================================
 // --- EXISTING ICONS ---
-import cappuccinoIcon from "../assets/passenger/coffee.svg";
-import latteIcon from "../assets/passenger/coffee.svg";
-import freddoIcon from "../assets/passenger/coffee.svg";
-import coldbrewIcon from "../assets/passenger/coffee.svg";
-import greekIcon from "../assets/passenger/coffee.svg";
-import frappeIcon from "../assets/passenger/coffee.svg";
+import cappuccinoIcon from "../assets/passenger/order/coffee.svg";
+import latteIcon from "../assets/passenger/order/coffee.svg";
+import freddoIcon from "../assets/passenger/order/coffee.svg";
+import coldbrewIcon from "../assets/passenger/order/coffee.svg";
+import greekIcon from "../assets/passenger/order/coffee.svg";
+import frappeIcon from "../assets/passenger/order/coffee.svg";
 
-import clubIcon from "../assets/passenger/items/club.svg";
-import toastIcon from "../assets/passenger/items/toast.svg";
-import baguetteIcon from "../assets/passenger/items/baguette.svg";
-import avocadoIcon from "../assets/passenger/items/avocadoToast.svg";
-import wrapIcon from "../assets/passenger/items/wrap.svg";
+import clubIcon from "../assets/passenger/order/items/club.svg";
+import toastIcon from "../assets/passenger/order/items/toast.svg";
+import baguetteIcon from "../assets/passenger/order/items/baguette.svg";
+import avocadoIcon from "../assets/passenger/order/items/avocadoToast.svg";
+import wrapIcon from "../assets/passenger/order/items/wrap.svg";
 
-import margaritaIcon from "../assets/passenger/items/margarita.svg";
-import pepperoniIcon from "../assets/passenger/items/pepperoni.svg";
-import specialIcon from "../assets/passenger/items/special.svg";
-import veggieIcon from "../assets/passenger/items/veggie.svg";
+import margaritaIcon from "../assets/passenger/order/items/margarita.svg";
+import pepperoniIcon from "../assets/passenger/order/items/pepperoni.svg";
+import specialIcon from "../assets/passenger/order/items/special.svg";
+import veggieIcon from "../assets/passenger/order/items/veggie.svg";
 
-import colaIcon from "../assets/passenger/items/cola.svg";
-import orangeadeIcon from "../assets/passenger/items/orangeade.svg";
-import waterIcon from "../assets/passenger/items/water.svg";
-import juiceIcon from "../assets/passenger/items/juice.svg";
-import lemonadeIcon from "../assets/passenger/items/lemonade.svg";
+import colaIcon from "../assets/passenger/order/items/cola.svg";
+import orangeadeIcon from "../assets/passenger/order/items/orangeade.svg";
+import waterIcon from "../assets/passenger/order/items/water.svg";
+import juiceIcon from "../assets/passenger/order/items/juice.svg";
+import lemonadeIcon from "../assets/passenger/order/items/lemonade.svg";
 // =====================================================================
 
 export const CATEGORIES = [

@@ -4,10 +4,12 @@ import Modal from "./components/Modal";
 import TabletLayout from "./screens/Passenger/TabletLayout";
 import HomeScreen from "./screens/HomeScreen";
 import PassengerScreen from "./screens/Passenger/PassengerScreen";
+import Fullscreen from "./screens/Passenger/Fullscreen/Fullscreen";
+import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
 // import DriverScreen from "./screens/Driver/DriverScreen";
-import ShopsScreen from "./screens/Passenger/ShopsScreen";
-import MenuScreen from "./screens/Passenger/MenuScreen";
-import CheckoutScreen from "./screens/Passenger/CheckoutScreen";
+import ShopsScreen from "./screens/Passenger/Order/ShopsScreen";
+import MenuScreen from "./screens/Passenger/Order/MenuScreen";
+import CheckoutScreen from "./screens/Passenger/Order/CheckoutScreen";
 
 export default function App() {
   const [view, setView] = useState("home"); // Δείχνει ποια οθόνη είναι ενεργή και εμφανίζεται: "home" | "shops" | "menu" | "checkout"
@@ -117,22 +119,36 @@ export default function App() {
         (isTabletMode ? (
           <TabletLayout currentScenario={currentScenario}>
             <PassengerScreen
-              onForward={() => setView("shops")}
+              onFullscreen={() => setView("fullscreen")}
+              onOrder={() => setView("shops")}
+              onSights={() => setView("sightsMenu")}
               onBack={handleReturnToBus}
             />
           </TabletLayout>
         ) : (
           <PassengerScreen
-            onForward={() => setView("shops")}
+            onFullscreen={() => setView("fullscreen")}
+            onOrder={() => setView("shops")}
+            onSights={() => setView("sightsMenu")}
             onBack={() => setView("home")}
           />
         ))}
 
-      {/* 2. ΟΔΗΓΟΣ (Μόνο αν δεν είμαστε σε Tablet Mode) */}
-      {view === "driverScreen" && (
-        // <DriverScreen onBack={() => setView("home")} />
-        <div>Driver Screen Placeholder</div>
-      )}
+      {/* 3. FULLSCREEN */}
+      {view === "fullscreen" &&
+        (isTabletMode ? (
+          <TabletLayout currentScenario={currentScenario}>
+            <Fullscreen
+              currentScenario={currentScenario}
+              onBack={() => setView("passengerScreen")}
+            />
+          </TabletLayout>
+        ) : (
+          <Fullscreen
+            currentScenario={currentScenario}
+            onBack={() => setView("passengerScreen")}
+          />
+        ))}
 
       {/* 4. SHOPS SCREEN */}
       {view === "shops" &&
@@ -191,6 +207,46 @@ export default function App() {
             onBack={() => setView("menu")}
           />
         ))}
+
+      {/* 7. SIGHTS SCREEN */}
+      {view === "sightsMenu" &&
+        (isTabletMode ? (
+          <TabletLayout currentScenario={currentScenario}>
+            <SightsMenuScreen
+              currentScenario={currentScenario}
+              onSelectSight={() => setView("sight")}
+              onBack={() => setView("passengerScreen")}
+            />
+          </TabletLayout>
+        ) : (
+          <SightsMenuScreen
+            currentScenario={currentScenario}
+            onSelectSight={() => setView("sight")}
+            onBack={() => setView("passengerScreen")}
+          />
+        ))}
+
+      {/* 8. SPECIFIC SIGHT SCREEN */}
+      {view === "sight" &&
+        (isTabletMode ? (
+          <TabletLayout currentScenario={currentScenario}>
+            <SightsMenuScreen
+              onSelectSight={handleSightSelect}
+              onBack={() => setView("passengerScreen")}
+            />
+          </TabletLayout>
+        ) : (
+          <SightsMenuScreen
+            onSelectSight={handleSightSelect}
+            onBack={() => setView("passengerScreen")}
+          />
+        ))}
+
+      {/* 2. ΟΔΗΓΟΣ (Μόνο αν δεν είμαστε σε Tablet Mode) */}
+      {view === "driverScreen" && (
+        // <DriverScreen onBack={() => setView("home")} />
+        <div>Driver Screen Placeholder</div>
+      )}
 
       {/* Modal καλαθιού */}
       {isCartOpen && (

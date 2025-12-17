@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import monitorImage from "../assets/passenger/passenger-screen.png";
-import bagImage from "../assets/bag.svg";
-import mapImage from "../assets/map.svg";
-import marker from "../assets/marker.svg";
-import exit from "../assets/exit.svg";
+import bagImage from "../assets/home/bag.svg";
+import mapImage from "../assets/home/map.svg";
+import marker from "../assets/home/marker.svg";
+import exit from "../assets/home/exit.svg";
 
 import Modal from "../components/Modal";
 
-import BusTownClosed1 from "../assets/busbackground/BusTownClosed1.mp4";
-import BusTownClosed2 from "../assets/busbackground/BusTownClosed2.mp4";
-import BusTownClosed3 from "../assets/busbackground/BusTownClosed3.mp4";
-import BusTownOpen1 from "../assets/busbackground/BusTownOpen1.mp4";
-import BusTownOpen3 from "../assets/busbackground/BusTownOpen3.mp4";
+import BusTownClosed1 from "../assets/home/busbackground/BusTownClosed1.mp4";
+import BusTownClosed2 from "../assets/home/busbackground/BusTownClosed2.mp4";
+import BusTownClosed3 from "../assets/home/busbackground/BusTownClosed3.mp4";
+import BusTownOpen1 from "../assets/home/busbackground/BusTownOpen1.mp4";
+import BusTownOpen3 from "../assets/home/busbackground/BusTownOpen3.mp4";
 
 export default function HomeScreen({
   onPassengerScreen,

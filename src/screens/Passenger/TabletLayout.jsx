@@ -1,19 +1,16 @@
 import React from "react";
 import "../../App.css";
 
-import OutsideBusTown1 from "../../assets/busbackground/OutsideBusTown1.mp4";
-import OutsideBusTown2 from "../../assets/busbackground/OutsideBusTown2.mp4";
-import OutsideBusTown3 from "../../assets/busbackground/OutsideBusTown3.mp4";
+import OutsideBusTown1 from "../../assets/home/busbackground/OutsideBusTown1.mp4";
+import OutsideBusTown2 from "../../assets/home/busbackground/OutsideBusTown2.mp4";
+import OutsideBusTown3 from "../../assets/home/busbackground/OutsideBusTown3.mp4";
 
 export default function TabletLayout({ children, currentScenario }) {
   let videoSource = OutsideBusTown1;
 
-  if (currentScenario === "insideClosedTown2") {
+  if (currentScenario.includes("Town2")) {
     videoSource = OutsideBusTown2;
-  } else if (
-    currentScenario === "insideClosedTown3" ||
-    currentScenario === "insideOpenTown3"
-  ) {
+  } else if (currentScenario.includes("Town3")) {
     videoSource = OutsideBusTown3;
   }
 
