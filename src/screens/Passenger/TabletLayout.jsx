@@ -16,7 +16,6 @@ export default function TabletLayout({ children, currentScenario }) {
 
   return (
     <div className="tablet-layout-container">
-      {/* NEW WRAPPER: This box maintains 16:9 ratio always */}
       <div className="video-aspect-ratio-box">
         <video
           key={videoSource}

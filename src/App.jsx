@@ -21,6 +21,15 @@ export default function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // Κρατάει τα αντικείμενα που έχουν αγοραστεί και παραδοθεί στον χρήστη
   const [pendingItems, setPendingItems] = useState([]); // Κρατάει τα αντικείμενα που περιμένουν παράδοση
   const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false); // Ελέγχει αν το modal παράδοσης είναι ανοιχτό για επιβεβαίωση παραλαβής
+  const [isTurnedOn, setIsTurnedOn] = useState([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]); // Νέο state: Ελέγχει αν οι οθόνες είναι ενεργοποιημένες
+  const [temperature, setTemperature] = useState(0); // Νέο state: Κρατάει την τρέχουσα θερμοκρασία (προς μελλοντική χρήση)
 
   // --- ACTIONS ---
 
@@ -80,6 +89,12 @@ export default function App() {
     );
   };
 
+  const handleTemperatureToggle = (index) => {
+    const updatedStates = [...isTurnedOn]; // Δημιουργεί ένα αντίγραφο του τρέχοντος πίνακα από states
+    updatedStates[index] = !updatedStates[index]; // Αντιστροφή της τιμής στο συγκεκριμένο index
+    setIsTurnedOn(updatedStates); // Ενημερώνει το state με τον νέο πίνακα
+  };
+
   // --- NAVIGATION HANDLERS ---
 
   // Ενεργοποιείται από το κουμπί εξόδου στο HomeScreen -> Μπαίνει σε λειτουργία Tablet (Έξω)
@@ -98,7 +113,7 @@ export default function App() {
 
   return (
     <>
-      {/* 1. HOME SCREEN */}
+      {/* 1. HOME SCREEN (Inside Bus) */}
       {view === "home" && (
         <HomeScreen
           onPassengerScreen={() => setView("passengerScreen")}
@@ -111,65 +126,46 @@ export default function App() {
           isDeliveryModalOpen={isDeliveryModalOpen}
           onCloseDeliveryModal={() => setIsDeliveryModalOpen(false)}
           onConsumeItem={handleConsumeItem}
+          handleTemperatureToggle={handleTemperatureToggle}
+          isTurnedOn={isTurnedOn}
         />
       )}
 
-      {/* 2. PASSENGER SCREEN */}
-      {view === "passengerScreen" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+      {/* 2. TABLET MODE (OUTSIDE) - SINGLE PERMANENT LAYOUT */}
+      {/* ΕΔΩ ΕΙΝΑΙ Η ΑΛΛΑΓΗ: Ελέγχουμε αν είμαστε σε Tablet Mode ΜΙΑ ΦΟΡΑ.
+          Το TabletLayout μένει σταθερό και αλλάζουμε μόνο τα παιδιά (children) του.
+          Έτσι το βίντεο δεν κάνει refresh.
+      */}
+      {isTabletMode && (
+        <TabletLayout currentScenario={currentScenario}>
+          {/* PASSENGER SCREEN TABLET */}
+          {view === "passengerScreen" && (
             <PassengerScreen
               onFullscreen={() => setView("fullscreen")}
               onOrder={() => setView("shops")}
               onSights={() => setView("sightsMenu")}
               onBack={handleReturnToBus}
             />
-          </TabletLayout>
-        ) : (
-          <PassengerScreen
-            onFullscreen={() => setView("fullscreen")}
-            onOrder={() => setView("shops")}
-            onSights={() => setView("sightsMenu")}
-            onBack={() => setView("home")}
-          />
-        ))}
+          )}
 
-      {/* 3. FULLSCREEN */}
-      {view === "fullscreen" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+          {/* FULLSCREEN VIEW */}
+          {view === "fullscreen" && (
             <Fullscreen
               currentScenario={currentScenario}
               onBack={() => setView("passengerScreen")}
             />
-          </TabletLayout>
-        ) : (
-          <Fullscreen
-            currentScenario={currentScenario}
-            onBack={() => setView("passengerScreen")}
-          />
-        ))}
+          )}
 
-      {/* 4. SHOPS SCREEN */}
-      {view === "shops" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+          {/* SHOPS LIST */}
+          {view === "shops" && (
             <ShopsScreen
               onSelectShop={handleShopSelect}
               onBack={() => setView("passengerScreen")}
             />
-          </TabletLayout>
-        ) : (
-          <ShopsScreen
-            onSelectShop={handleShopSelect}
-            onBack={() => setView("passengerScreen")}
-          />
-        ))}
+          )}
 
-      {/* 5. SHOP MENU SCREEN */}
-      {view === "menu" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+          {/* SHOP MENU */}
+          {view === "menu" && (
             <MenuScreen
               shopId={selectedShopId}
               cartCount={cart.length}
@@ -177,75 +173,118 @@ export default function App() {
               onBack={() => setView("shops")}
               onOpenCart={() => setIsCartOpen(true)}
             />
-          </TabletLayout>
-        ) : (
-          <MenuScreen
-            shopId={selectedShopId}
-            cartCount={cart.length}
-            onAddToCart={addToCart}
-            onBack={() => setView("shops")}
-            onOpenCart={() => setIsCartOpen(true)}
-          />
-        ))}
+          )}
 
-      {/* 6. CHECKOUT SCREEN */}
-      {view === "checkout" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+          {/* CHECKOUT */}
+          {view === "checkout" && (
             <CheckoutScreen
               cart={cart}
               total={calculateTotal()}
               onPay={handleFinalPayment}
               onBack={() => setView("menu")}
             />
-          </TabletLayout>
-        ) : (
-          <CheckoutScreen
-            cart={cart}
-            total={calculateTotal()}
-            onPay={handleFinalPayment}
-            onBack={() => setView("menu")}
-          />
-        ))}
+          )}
 
-      {/* 7. SIGHTS SCREEN */}
-      {view === "sightsMenu" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+          {/* SIGHTS MENU */}
+          {view === "sightsMenu" && (
             <SightsMenuScreen
               currentScenario={currentScenario}
               onSelectSight={() => setView("sight")}
               onBack={() => setView("passengerScreen")}
             />
-          </TabletLayout>
-        ) : (
-          <SightsMenuScreen
-            currentScenario={currentScenario}
-            onSelectSight={() => setView("sight")}
-            onBack={() => setView("passengerScreen")}
-          />
-        ))}
+          )}
 
-      {/* 8. SPECIFIC SIGHT SCREEN */}
-      {view === "sight" &&
-        (isTabletMode ? (
-          <TabletLayout currentScenario={currentScenario}>
+          {/* SPECIFIC SIGHT (Reusing menu for now per previous code) */}
+          {view === "sight" && (
             <SightsMenuScreen
-              onSelectSight={handleSightSelect}
+              currentScenario={currentScenario}
+              onSelectSight={() => {}}
+              onBack={() => setView("sightsMenu")}
+            />
+          )}
+        </TabletLayout>
+      )}
+
+      {/* 3. MONITOR MODE (INSIDE BUS) - NO WRAPPER */}
+      {!isTabletMode && (
+        <>
+          {view === "passengerScreen" && (
+            <PassengerScreen
+              onFullscreen={() => setView("fullscreen")}
+              onOrder={() => setView("shops")}
+              onSights={() => setView("sightsMenu")}
+              onBack={() => setView("home")}
+            />
+          )}
+
+          {view === "fullscreen" && (
+            <Fullscreen
+              currentScenario={currentScenario}
               onBack={() => setView("passengerScreen")}
             />
-          </TabletLayout>
-        ) : (
-          <SightsMenuScreen
-            onSelectSight={handleSightSelect}
-            onBack={() => setView("passengerScreen")}
-          />
-        ))}
+          )}
 
-      {/* 2. ΟΔΗΓΟΣ (Μόνο αν δεν είμαστε σε Tablet Mode) */}
-      {view === "driverScreen" && (
-        // <DriverScreen onBack={() => setView("home")} />
-        <div>Driver Screen Placeholder</div>
+          {view === "shops" && (
+            <ShopsScreen
+              onSelectShop={handleShopSelect}
+              onBack={() => setView("passengerScreen")}
+            />
+          )}
+
+          {view === "menu" && (
+            <MenuScreen
+              shopId={selectedShopId}
+              cartCount={cart.length}
+              onAddToCart={addToCart}
+              onBack={() => setView("shops")}
+              onOpenCart={() => setIsCartOpen(true)}
+            />
+          )}
+
+          {view === "checkout" && (
+            <CheckoutScreen
+              cart={cart}
+              total={calculateTotal()}
+              onPay={handleFinalPayment}
+              onBack={() => setView("menu")}
+            />
+          )}
+
+          {view === "sightsMenu" && (
+            <SightsMenuScreen
+              currentScenario={currentScenario}
+              onSelectSight={() => setView("sight")}
+              onBack={() => setView("passengerScreen")}
+            />
+          )}
+
+          {view === "sight" && (
+            <SightsMenuScreen
+              currentScenario={currentScenario}
+              onSelectSight={() => {}}
+              onBack={() => setView("sightsMenu")}
+            />
+          )}
+
+          {/* 4. DRIVER SCREEN (Μόνο αν δεν είμαστε σε Tablet Mode) */}
+          {view === "driverScreen" && (
+            // <DriverScreen onBack={() => setView("home")} />
+            <div style={{ color: "white", padding: "20px" }}>
+              Driver Screen Placeholder
+              <button
+                onClick={() => setView("home")}
+                className="btn brown"
+                style={{
+                  marginLeft: "20px",
+                  height: "auto",
+                  minHeight: "50px",
+                }}
+              >
+                Back
+              </button>
+            </div>
+          )}
+        </>
       )}
 
       {/* Modal καλαθιού */}

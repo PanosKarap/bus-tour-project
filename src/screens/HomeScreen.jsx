@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import monitorImage from "../assets/passenger/passenger-screen.png";
+import inactiveColdScreenImage from "../assets/home/inactive-temp-cold-screen.svg";
+import inactiveHotScreenImage from "../assets/home/inactive-temp-hot-screen.svg";
+import activeColdScreenImage from "../assets/home/active-temp-cold-screen.svg";
+import activeHotScreenImage from "../assets/home/active-temp-hot-screen.svg";
 import bagImage from "../assets/home/bag.svg";
 import mapImage from "../assets/home/map.svg";
 import marker from "../assets/home/marker.svg";
@@ -24,6 +28,8 @@ export default function HomeScreen({
   isDeliveryModalOpen,
   onCloseDeliveryModal,
   onConsumeItem,
+  handleTemperatureToggle,
+  isTurnedOn,
 }) {
   const [isBagOpen, setIsBagOpen] = useState(false);
 
@@ -148,6 +154,67 @@ export default function HomeScreen({
             alt="Monitor 4"
             className="monitor-img screen-4"
             onClick={onPassengerScreen}
+          />
+
+          {/* Κρύο: Αριστερή οθόνη τουρίστα */}
+          <img
+            src={
+              isTurnedOn[0] ? activeColdScreenImage : inactiveColdScreenImage
+            }
+            alt="Monitor 4"
+            className={`temp-screen temp-pos-0 ${
+              isTurnedOn[0] ? "cold-temp-active" : ""
+            }`}
+            onClick={() => handleTemperatureToggle(0)}
+          />
+          {/* Ζέστη: Αριστερή οθόνη τουρίστα */}
+          <img
+            src={isTurnedOn[1] ? activeHotScreenImage : inactiveHotScreenImage}
+            alt="Monitor 4"
+            className={`temp-screen temp-pos-1 ${
+              isTurnedOn[1] ? "hot-temp-active" : ""
+            }`}
+            onClick={() => handleTemperatureToggle(1)}
+          />
+          {/* Κρύο: Δεξιά πρώτη οθόνη τουρίστα */}
+          <img
+            src={
+              isTurnedOn[2] ? activeColdScreenImage : inactiveColdScreenImage
+            }
+            alt="Monitor 4"
+            className={`temp-screen temp-pos-2 ${
+              isTurnedOn[2] ? "cold-temp-active" : ""
+            }`}
+            onClick={() => handleTemperatureToggle(2)}
+          />
+          {/* Ζέστη: Δεξιά πρώτη οθόνη τουρίστα */}
+          <img
+            src={isTurnedOn[3] ? activeHotScreenImage : inactiveHotScreenImage}
+            alt="Monitor 4"
+            className={`temp-screen temp-pos-3 ${
+              isTurnedOn[3] ? "hot-temp-active" : ""
+            }`}
+            onClick={() => handleTemperatureToggle(3)}
+          />
+          {/* Κρύο: Δεξιά δεύτερη οθόνη τουρίστα */}
+          <img
+            src={
+              isTurnedOn[4] ? activeColdScreenImage : inactiveColdScreenImage
+            }
+            alt="Monitor 4"
+            className={`temp-screen temp-pos-4 ${
+              isTurnedOn[4] ? "cold-temp-active" : ""
+            }`}
+            onClick={() => handleTemperatureToggle(4)}
+          />
+          {/* Ζέστη: Δεξιά δεύτερη οθόνη τουρίστα */}
+          <img
+            src={isTurnedOn[5] ? activeHotScreenImage : inactiveHotScreenImage}
+            alt="Monitor 4"
+            className={`temp-screen temp-pos-5 ${
+              isTurnedOn[5] ? "hot-temp-active" : ""
+            }`}
+            onClick={() => handleTemperatureToggle(5)}
           />
 
           {/* Συνολικό εικονίδιο τσάντας αγορασμένων αντικειμένων */}

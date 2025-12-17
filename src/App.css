@@ -960,3 +960,91 @@ body {
   overflow: visible !important;
   justify-content: flex-start;
 }
+
+/* --- CALIBRATION STYLES FOR TEMP SCREENS --- */
+
+/* 1. Shared style for all screens to make them visible */
+.temp-screen {
+  position: absolute;
+
+  pointer-events: auto; /* NEW: Forces it to accept clicks even if parent doesn't */
+  cursor: pointer; /* NEW: Changes cursor to hand so you know it's clickable */
+
+  /* Initial Size */
+  width: 2%;
+}
+
+.temp-screen:hover {
+  transform: scale(1.05);
+}
+
+.hot-temp-active {
+  box-shadow: 0 0 50px 20px #ff4200;
+}
+
+.cold-temp-active {
+  box-shadow: 0 0 50px 20px #1cf7ff;
+}
+
+/* 2. Positioning - SCATTERED RANDOMLY */
+/* Adjust 'top' and 'left' to move them. */
+/* Adjust 'width' and 'height' to resize them. */
+
+/* Screen 0: Top Left */
+.temp-pos-0 {
+  top: 77%;
+  left: 12%;
+}
+
+/* Screen 1: Top Center */
+.temp-pos-1 {
+  top: 77%;
+  left: 15%;
+}
+
+/* Screen 2: Top Right */
+.temp-pos-2 {
+  top: 78%;
+  left: 72%;
+}
+
+/* Screen 3: Bottom Left */
+.temp-pos-3 {
+  top: 78%;
+  left: 75%;
+}
+
+/* Screen 4: Bottom Center */
+.temp-pos-4 {
+  top: 77.6%;
+  left: 90%;
+}
+
+/* Screen 5: Bottom Right */
+.temp-pos-5 {
+  top: 77.6%;
+  left: 93%;
+}
+
+.layout-town2 .temp-pos-0 {
+  left: 13%;
+}
+.layout-town2 .temp-pos-1 {
+  left: 16%;
+}
+.layout-town2 .temp-pos-2 {
+  left: 73%;
+}
+.layout-town2 .temp-pos-3 {
+  left: 76%;
+}
+.layout-town2 .temp-pos-4 {
+  left: 91%;
+}
+.layout-town2 .temp-pos-5 {
+  left: 94%;
+}
+
+/* 3. OPTIONAL: Rotations */
+/* Add these if your screens are tilted in the video */
+/* .temp-pos-0 { transform: rotate(2deg); } */
