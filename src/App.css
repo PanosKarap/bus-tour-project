@@ -281,6 +281,7 @@ body {
   margin: 0 0 10px 0;
   display: -webkit-box;
   -webkit-line-clamp: 2;
+  line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -1033,18 +1034,48 @@ body {
   left: 16%;
 }
 .layout-town2 .temp-pos-2 {
-  left: 73%;
+  left: 72.5%;
 }
 .layout-town2 .temp-pos-3 {
-  left: 76%;
+  left: 75.5%;
 }
 .layout-town2 .temp-pos-4 {
-  left: 91%;
+  left: 90.7%;
 }
 .layout-town2 .temp-pos-5 {
-  left: 94%;
+  left: 93.7%;
 }
 
-/* 3. OPTIONAL: Rotations */
-/* Add these if your screens are tilted in the video */
-/* .temp-pos-0 { transform: rotate(2deg); } */
+.temp-image {
+  position: absolute;
+  bottom: 83.8%;
+  left: 56%;
+  width: 0.7%;
+  z-index: 30;
+}
+
+.layout-town2 .temp-image {
+  left: 56.5%;
+}
+
+.layout-town3 .temp-image {
+  left: 56.1%;
+}
+
+.temp-value {
+  position: absolute;
+  bottom: 84.3%;
+  left: 56.8%;
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  z-index: 30;
+}
+
+.layout-town2 .temp-value {
+  left: 57.4%;
+}
+
+.layout-town3 .temp-value {
+  left: 56.9%;
+}

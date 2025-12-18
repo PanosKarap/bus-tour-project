@@ -6,6 +6,7 @@ import HomeScreen from "./screens/HomeScreen";
 import PassengerScreen from "./screens/Passenger/PassengerScreen";
 import Fullscreen from "./screens/Passenger/Fullscreen/Fullscreen";
 import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
+import SightScreen from "./screens/Passenger/Sights/SightScreen";
 // import DriverScreen from "./screens/Driver/DriverScreen";
 import ShopsScreen from "./screens/Passenger/Order/ShopsScreen";
 import MenuScreen from "./screens/Passenger/Order/MenuScreen";
@@ -28,8 +29,22 @@ export default function App() {
     false,
     false,
     false,
-  ]); // Νέο state: Ελέγχει αν οι οθόνες είναι ενεργοποιημένες
-  const [temperature, setTemperature] = useState(0); // Νέο state: Κρατάει την τρέχουσα θερμοκρασία (προς μελλοντική χρήση)
+  ]); // Κρατάει τα states ενεργού/ανενεργού για κάθε κλιματισμό (6 συνολικά)
+  const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
+
+  // Υπολογίζει την τελική θερμοκρασία με βάση τους ενεργούς κλιματισμούς
+  const calculateTotalTemperature = () => {
+    let modifier = 0;
+    isTurnedOn.forEach((isTurnedOn, index) => {
+      if (isTurnedOn) {
+        modifier += index % 2 === 0 ? -1 : 1; // Index κρύου: 0, 2, 4 (Odd) | Index ζεστού: 1, 3, 5 (Even)
+      }
+    });
+    return baseTemperature + modifier;
+  };
+  const finalTemperature = `${calculateTotalTemperature()}°C`;
+
+  const [selectedSight, setSelectedSight] = useState(null); // New state for holding the active sight data
 
   // --- ACTIONS ---
 
@@ -128,6 +143,8 @@ export default function App() {
           onConsumeItem={handleConsumeItem}
           handleTemperatureToggle={handleTemperatureToggle}
           isTurnedOn={isTurnedOn}
+          finalTemperature={finalTemperature}
+          setBaseTemperature={setBaseTemperature}
         />
       )}
 
@@ -185,21 +202,24 @@ export default function App() {
             />
           )}
 
-          {/* SIGHTS MENU */}
           {view === "sightsMenu" && (
             <SightsMenuScreen
               currentScenario={currentScenario}
-              onSelectSight={() => setView("sight")}
+              onSelectSight={(sightData) => {
+                setSelectedSight(sightData); // Save the clicked sight (image, desc, name)
+                setView("sight"); // Change view
+              }}
               onBack={() => setView("passengerScreen")}
             />
           )}
 
-          {/* SPECIFIC SIGHT (Reusing menu for now per previous code) */}
           {view === "sight" && (
-            <SightsMenuScreen
-              currentScenario={currentScenario}
-              onSelectSight={() => {}}
-              onBack={() => setView("sightsMenu")}
+            <SightScreen
+              sight={selectedSight} // Pass the data we saved
+              onBack={() => {
+                setSelectedSight(null); // Clear selection
+                setView("sightsMenu"); // Go back to the list
+              }}
             />
           )}
         </TabletLayout>
@@ -253,16 +273,21 @@ export default function App() {
           {view === "sightsMenu" && (
             <SightsMenuScreen
               currentScenario={currentScenario}
-              onSelectSight={() => setView("sight")}
+              onSelectSight={(sightData) => {
+                setSelectedSight(sightData); // Save the clicked sight (image, desc, name)
+                setView("sight"); // Change view
+              }}
               onBack={() => setView("passengerScreen")}
             />
           )}
 
           {view === "sight" && (
-            <SightsMenuScreen
-              currentScenario={currentScenario}
-              onSelectSight={() => {}}
-              onBack={() => setView("sightsMenu")}
+            <SightScreen
+              sight={selectedSight} // Pass the data we saved
+              onBack={() => {
+                setSelectedSight(null); // Clear selection
+                setView("sightsMenu"); // Go back to the list
+              }}
             />
           )}
 

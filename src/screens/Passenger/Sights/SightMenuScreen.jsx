@@ -18,25 +18,79 @@ export default function SightsMenuScreen({
   onBack,
   currentScenario,
 }) {
-  // 1. DETERMINE WHICH SIGHTS TO SHOW
+  // 1. DETERMINE WHICH SIGHTS TO SHOW AND ADD DESCRIPTIONS
   let sightsList = [
-    { id: 1, image: Town1Sight1, name: "The Great Basilica" },
-    { id: 2, image: Town1Sight2, name: "The Twin Towers" },
-    { id: 3, image: Town1Sight3, name: "The Endless Arches" },
+    {
+      id: 1,
+      image: Town1Sight1,
+      name: "The Great Basilica",
+      description:
+        "Μια ιστορική βασιλική που χτίστηκε τον 14ο αιώνα. Φημίζεται για τα εντυπωσιακά ψηφιδωτά της και την πανοραμική θέα της πόλης από το καμπαναριό.",
+    },
+    {
+      id: 2,
+      image: Town1Sight2,
+      name: "The Twin Towers",
+      description:
+        "Δύο δίδυμοι πύργοι που αποτελούν σύμβολο της σύγχρονης αρχιτεκτονικής της πόλης. Προσφέρουν μοναδική θέα στο λιμάνι.",
+    },
+    {
+      id: 3,
+      image: Town1Sight3,
+      name: "The Endless Arches",
+      description:
+        "Ένας αρχαιολογικός χώρος γεμάτος με αψίδες που εκτείνονται για χιλιόμετρα. Ιδανικό μέρος για φωτογραφία και ιστορικούς περιπάτους.",
+    },
   ];
 
   if (currentScenario) {
     if (currentScenario.includes("Town2")) {
       sightsList = [
-        { id: 1, image: Town2Sight1, name: "The Gothic Cathedral" },
-        { id: 2, image: Town2Sight2, name: "The Lady of the Lantern" },
-        { id: 3, image: Town2Sight3, name: "Mercato Centrale" },
+        {
+          id: 1,
+          image: Town2Sight1,
+          name: "The Gothic Cathedral",
+          description:
+            "Ένα αριστούργημα γοτθικής τέχνης με εντυπωσιακά βιτρό και γλυπτά που αφηγούνται την ιστορία της πόλης.",
+        },
+        {
+          id: 2,
+          image: Town2Sight2,
+          name: "The Lady of the Lantern",
+          description:
+            "Ένα μυστηριώδες άγαλμα στην κεντρική πλατεία που, σύμφωνα με τον θρύλο, φωτίζει το δρόμο των χαμένων ταξιδιωτών.",
+        },
+        {
+          id: 3,
+          image: Town2Sight3,
+          name: "Mercato Centrale",
+          description:
+            "Η κεντρική αγορά της πόλης, γεμάτη χρώματα, αρώματα και τοπικά προϊόντα. Το ιδανικό μέρος για γαστρονομικές εξερευνήσεις.",
+        },
       ];
     } else if (currentScenario.includes("Town3")) {
       sightsList = [
-        { id: 1, image: Town3Sight1, name: "The Music Pavilion" },
-        { id: 2, image: Town3Sight2, name: "The Ancient Amphitheater" },
-        { id: 3, image: Town3Sight3, name: "The Golden Gate" },
+        {
+          id: 1,
+          image: Town3Sight1,
+          name: "The Music Pavilion",
+          description:
+            "Ένας χώρος αφιερωμένος στη μουσική και τις τέχνες, όπου πραγματοποιούνται καθημερινά συναυλίες κλασικής μουσικής.",
+        },
+        {
+          id: 2,
+          image: Town3Sight2,
+          name: "The Ancient Amphitheater",
+          description:
+            "Ένα καλοδιατηρημένο αρχαίο θέατρο που χρησιμοποιείται ακόμη και σήμερα για παραστάσεις αρχαίου δράματος.",
+        },
+        {
+          id: 3,
+          image: Town3Sight3,
+          name: "The Golden Gate",
+          description:
+            "Η ιστορική είσοδος της παλιάς πόλης, διακοσμημένη με φύλλα χρυσού που λάμπουν στο ηλιοβασίλεμα.",
+        },
       ];
     }
   }
@@ -74,47 +128,38 @@ export default function SightsMenuScreen({
           <button
             key={sight.id}
             className="btn"
-            onClick={() => onSelectSight(sight)}
+            onClick={() => onSelectSight(sight)} // Passing the full object with description
             style={{
-              // 1. IMAGE AS BACKGROUND
               backgroundImage: `url(${sight.image})`,
               backgroundSize: "cover",
               backgroundColor: "var(--brown)",
               backgroundPosition: "center",
               backgroundRepeat: "no-repeat",
-
-              // 2. SIZE
               width: "350px",
               height: "350px",
-
-              // 3. LAYOUT CHANGE: Use Relative Positioning here
-              position: "relative", // Needed for the absolute child
+              position: "relative",
               padding: 0,
-              display: "block", // Removes flex behavior to avoid layout quirks
-
-              // 4. BORDER STYLING
+              display: "block",
               borderRadius: "15px",
-              overflow: "hidden", // Clips the absolute child at the corners
+              overflow: "hidden",
               boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
               cursor: "pointer",
-              border: "none", // Ensure no default border creates space
+              border: "none",
             }}
           >
-            {/* Dark gradient bar at bottom */}
             <div
               style={{
-                // 5. ABSOLUTE POSITIONING (Fixes the gap)
                 position: "absolute",
                 bottom: 0,
                 left: 0,
                 width: "100%",
-
                 color: "white",
                 padding: "10px",
                 textAlign: "center",
                 fontWeight: "bold",
                 fontSize: "1.3rem",
                 backdropFilter: "blur(3px)",
+                background: "rgba(0,0,0,0.4)",
               }}
             >
               {sight.name}

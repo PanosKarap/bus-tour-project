@@ -6,6 +6,7 @@ import activeColdScreenImage from "../assets/home/active-temp-cold-screen.svg";
 import activeHotScreenImage from "../assets/home/active-temp-hot-screen.svg";
 import bagImage from "../assets/home/bag.svg";
 import mapImage from "../assets/home/map.svg";
+import tempImage from "../assets/home/temperature.svg";
 import marker from "../assets/home/marker.svg";
 import exit from "../assets/home/exit.svg";
 
@@ -30,6 +31,8 @@ export default function HomeScreen({
   onConsumeItem,
   handleTemperatureToggle,
   isTurnedOn,
+  finalTemperature,
+  setBaseTemperature,
 }) {
   const [isBagOpen, setIsBagOpen] = useState(false);
 
@@ -55,18 +58,21 @@ export default function HomeScreen({
   const handleVideoSwitchToTown1 = () => {
     if (currentScenario !== "insideClosedTown1") {
       setCurrentScenario("insideClosedTown1");
+      setBaseTemperature(32);
       onTravel?.();
     }
   };
   const handleVideoSwitchToTown2 = () => {
     if (currentScenario !== "insideClosedTown2") {
       setCurrentScenario("insideClosedTown2");
+      setBaseTemperature(18);
       onTravel?.();
     }
   };
   const handleVideoSwitchToTown3 = () => {
     if (currentScenario !== "insideClosedTown3") {
       setCurrentScenario("insideClosedTown3");
+      setBaseTemperature(28);
       onTravel?.();
     }
   };
@@ -116,6 +122,9 @@ export default function HomeScreen({
               onClick={handleVideoSwitchToTown3}
             />
           </div>
+
+          <img src={tempImage} alt="temperatureIcon" className="temp-image" />
+          <span className="temp-value">{finalTemperature}</span>
 
           {/* Κουμπί εξόδου από το λεωφορείο */}
           <img
