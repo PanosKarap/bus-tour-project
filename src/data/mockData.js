@@ -1,15 +1,15 @@
+// ΕΙΚΟΝΙΔΙΑ ΚΑΦΕΤΕΡΙΩΝ
 import shop1Icon from "../assets/passenger/order/shop1.svg";
 import shop2Icon from "../assets/passenger/order/shop2.svg";
 import shop3Icon from "../assets/passenger/order/shop3.svg";
 
-// --- CATEGORY ICONS ---
+// ΕΙΚΟΝΙΔΙΑ ΚΑΤΗΓΟΡΙΩΝ ΑΝΤΙΚΕΙΜΕΝΩΝ
 import coffeeCatIcon from "../assets/passenger/order/coffee.svg";
 import sandwichCatIcon from "../assets/passenger/order/sandwich.svg";
 import pizzaCatIcon from "../assets/passenger/order/pizza.svg";
 import sodaCatIcon from "../assets/passenger/order/soda.svg";
 
-// =====================================================================
-// --- EXISTING ICONS ---
+// ΕΙΚΟΝΙΔΙΑ ΚΑΦΕ
 import cappuccinoIcon from "../assets/passenger/order/coffee.svg";
 import latteIcon from "../assets/passenger/order/coffee.svg";
 import freddoIcon from "../assets/passenger/order/coffee.svg";
@@ -17,17 +17,20 @@ import coldbrewIcon from "../assets/passenger/order/coffee.svg";
 import greekIcon from "../assets/passenger/order/coffee.svg";
 import frappeIcon from "../assets/passenger/order/coffee.svg";
 
+// ΕΙΚΟΝΙΔΙΑ ΣΑΝΤΟΥΙΤΣ
 import clubIcon from "../assets/passenger/order/items/club.svg";
 import toastIcon from "../assets/passenger/order/items/toast.svg";
 import baguetteIcon from "../assets/passenger/order/items/baguette.svg";
 import avocadoIcon from "../assets/passenger/order/items/avocadoToast.svg";
 import wrapIcon from "../assets/passenger/order/items/wrap.svg";
 
+// ΕΙΚΟΝΙΔΙΑ ΠΙΤΣΑΣ
 import margaritaIcon from "../assets/passenger/order/items/margarita.svg";
 import pepperoniIcon from "../assets/passenger/order/items/pepperoni.svg";
 import specialIcon from "../assets/passenger/order/items/special.svg";
 import veggieIcon from "../assets/passenger/order/items/veggie.svg";
 
+// ΕΙΚΟΝΙΔΙΑ ΑΝΑΨΥΚΤΙΚΩΝ
 import colaIcon from "../assets/passenger/order/items/cola.svg";
 import orangeadeIcon from "../assets/passenger/order/items/orangeade.svg";
 import waterIcon from "../assets/passenger/order/items/water.svg";
@@ -44,7 +47,7 @@ export const CATEGORIES = [
 
 export const SHOPS_DATA = {
   // ==========================================================
-  // SHOP 1: Urban Cafe
+  // SHOP 1: Καφενείον
   // ==========================================================
   shop1: {
     id: "shop1",
@@ -208,7 +211,7 @@ export const SHOPS_DATA = {
   },
 
   // ==========================================================
-  // SHOP 2: Green & Bean
+  // SHOP 2: Η Γωνιά
   // ==========================================================
   shop2: {
     id: "shop2",

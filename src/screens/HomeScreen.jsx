@@ -33,9 +33,9 @@ export default function HomeScreen({
   isTurnedOn,
   finalTemperature,
   setBaseTemperature,
+  isBagOpen,
+  setIsBagOpen,
 }) {
-  const [isBagOpen, setIsBagOpen] = useState(false);
-
   let videoSource;
   let layoutClass;
 

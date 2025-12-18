@@ -13,15 +13,26 @@ import MenuScreen from "./screens/Passenger/Order/MenuScreen";
 import CheckoutScreen from "./screens/Passenger/Order/CheckoutScreen";
 
 export default function App() {
+  // ******* Μεταβλητές - States *******
   const [view, setView] = useState("home"); // Δείχνει ποια οθόνη είναι ενεργή και εμφανίζεται: "home" | "shops" | "menu" | "checkout"
-  const [isTabletMode, setIsTabletMode] = useState(false); // Νέο state: Ελέγχει αν είμαστε έξω με το tablet
+  const [isTabletMode, setIsTabletMode] = useState(false); // Κρατάει το state για το αν είμαστε σε tablet mode ή όχι
   const [currentScenario, setCurrentScenario] = useState("insideClosedTown1"); // Κρατάει το name για το αντίστοιχο βίντεο φόντου
+
+  const [selectedSight, setSelectedSight] = useState(null); // New state for holding the active sight data
+
+  // --Παραγγελίες--
   const [selectedShopId, setSelectedShopId] = useState(null); // Κρατάει το id του επιλεγμένου καταστήματος
-  const [cart, setCart] = useState([]); // Κρατάει τα αντικείμενα του καλαθιού
-  const [isCartOpen, setIsCartOpen] = useState(false); // Ελέγχει αν το modal του καλαθιού είναι ανοιχτό
-  const [purchasedItems, setPurchasedItems] = useState([]); // Κρατάει τα αντικείμενα που έχουν αγοραστεί και παραδοθεί στον χρήστη
-  const [pendingItems, setPendingItems] = useState([]); // Κρατάει τα αντικείμενα που περιμένουν παράδοση
-  const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false); // Ελέγχει αν το modal παράδοσης είναι ανοιχτό για επιβεβαίωση παραλαβής
+  const [cart, setCart] = useState([]); // Κρατάει τα αντικείμενα του καλαθιού εντός του καταστήματος
+  const [isCartOpen, setIsCartOpen] = useState(false); // Ελέγχει αν το modal του καλαθιού εντός του καταστήματος είναι ανοιχτό
+
+  const [pendingItems, setPendingItems] = useState([]); // Κρατάει τα αντικείμενα που περιμένουν παράδοση στην τσάντα
+  const [isDeliveryModalOpen, setIsDeliveryModalOpen] = useState(false); // Ελέγχει αν το modal παράδοσης για επιβεβαίωση παραλαβής είναι ανοιχτό
+
+  const [purchasedItems, setPurchasedItems] = useState([]); // Κρατάει τα αντικείμενα που έχουν αγοραστεί και παραδοθεί στον χρήστη και βρίσκονται στην τσάντα του
+  const [isBagOpen, setIsBagOpen] = useState(false); // Ελέγχει αν το modal της τσάντας με τα αγορασμένα αντικείμενα είναι ανοιχτό
+
+  // --Θερμοκρασίες και κλιματισμοί--
+  const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
   const [isTurnedOn, setIsTurnedOn] = useState([
     false,
     false,
@@ -30,63 +41,31 @@ export default function App() {
     false,
     false,
   ]); // Κρατάει τα states ενεργού/ανενεργού για κάθε κλιματισμό (6 συνολικά)
-  const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
 
   // Υπολογίζει την τελική θερμοκρασία με βάση τους ενεργούς κλιματισμούς
   const calculateTotalTemperature = () => {
     let modifier = 0;
     isTurnedOn.forEach((isTurnedOn, index) => {
       if (isTurnedOn) {
-        modifier += index % 2 === 0 ? -1 : 1; // Index κρύου: 0, 2, 4 (Odd) | Index ζεστού: 1, 3, 5 (Even)
+        modifier += index % 2 === 0 ? -1 : 1; // Index κρύων οθονών: 0, 2, 4 (Odd) | Index ζεστών οθονών: 1, 3, 5 (Even)
       }
     });
     return baseTemperature + modifier;
   };
-  const finalTemperature = `${calculateTotalTemperature()}°C`;
+  const finalTemperature = `${calculateTotalTemperature()}°C`; // Κρατάει την τελική θερμοκρασία σε μορφή string με °C για εμφάνιση στην οθόνη
 
-  const [selectedSight, setSelectedSight] = useState(null); // New state for holding the active sight data
+  // ******* Συναρτήσεις *******
 
-  // --- ACTIONS ---
-
-  // Αδειάζει καλάθι αν αλλάξει κατάστημα | Ενημερώνει το state του επιλεγμένου καταστήματος | Μεταβαίνει στην οθόνη μενού του επιλεγμένου καταστήματος
-  const handleShopSelect = (id) => {
-    if (selectedShopId !== id) setCart([]);
-    setSelectedShopId(id);
-    setView("menu");
+  // --Πλοήγηση από το λεωφορείο στο tablet mode και το αντίστροφο--
+  // Ενεργοποιείται από το κουμπί εξόδου στο HomeScreen -> Μπαίνει σε λειτουργία Tablet (Έξω)
+  const handleExitBus = () => {
+    setIsTabletMode(true);
+    setView("passengerScreen");
   };
-
-  const addToCart = (item, options) => {
-    // Προσθέτει το αντικείμενο στο καλάθι με μοναδικό cartId με βάση την ώρα που έγινε η προσθήκη και τις επιλεγμένες επιλογές
-    const orderItem = { ...item, cartId: Date.now(), selectedOptions: options };
-    // Διατηρεί τα υπάρχοντα αντικείμενα και προσθέτει το νέο
-    setCart([...cart, orderItem]);
-  };
-
-  const removeFromCart = (id) => {
-    setCart(cart.filter((item) => item.cartId !== id));
-  };
-
-  const calculateTotal = () => {
-    return cart
-      .reduce(
-        (total, item) => total + parseFloat(item.price.replace("€", "")),
-        0
-      )
-      .toFixed(2);
-  };
-
-  // Ολοκληρώνει την πληρωμή: Μεταφέρει τα αντικείμενα του καλαθιού στα pendingItems, αδειάζει το καλάθι, κλείνει το modal καλαθιού
-  const handleFinalPayment = () => {
-    setPendingItems([...pendingItems, ...cart]);
-    setCart([]);
-    setIsCartOpen(false);
-
-    // Ελέγχει αν είμαστε σε tablet mode για να επιστρέψει στην κατάλληλη οθόνη
-    if (isTabletMode) {
-      setView("shops");
-    } else {
-      setView("home");
-    }
+  // Επιστροφή στη θέση (μέσα στο λεωφορείο) -> Κλείνει το Tablet layout
+  const handleReturnToBus = () => {
+    setIsTabletMode(false);
+    setView("home");
   };
 
   // Ελέγχει αν υπάρχουν αντικείμενα προς παράδοση κατά τη μετάβαση σε νέα πόλη | Αν ναι, τα μεταφέρει στα purchasedItems, αδειάζει τα pendingItems και ανοίγει το modal παράδοσης
@@ -98,219 +77,198 @@ export default function App() {
     }
   };
 
+  // Αφαιρεί το αντικείμενο με το συγκεκριμένο cartId από τα items της τσάντας μετά την κατανάλωση του
   const handleConsumeItem = (cartId) => {
     setPurchasedItems((prevItems) =>
       prevItems.filter((item) => item.cartId !== cartId)
     );
   };
 
+  // --Παραγγελίες--
+  // Μεταβαίνει στην οθόνη μενού του επιλεγμένου καταστήματος
+  const handleShopSelect = (id) => {
+    if (selectedShopId !== id) setCart([]); // Για να ισχύει, σημαίνει ότι αλλάξαμε κατάστημα οπότε αδειάζουμε το καλάθι
+    setSelectedShopId(id); // Ενημερώνουμε το id του νέου επιλεγμένου καταστήματος
+    setView("menu");
+  };
+  const addToCart = (item, options) => {
+    // Προσθέτει το αντικείμενο στο καλάθι με μοναδικό cartId με βάση την ώρα που έγινε η προσθήκη και τις επιλεγμένες επιλογές
+    const orderItem = { ...item, cartId: Date.now(), selectedOptions: options };
+    // Διατηρεί τα υπάρχοντα αντικείμενα και προσθέτει το νέο
+    setCart([...cart, orderItem]); // Διατηρεί τα υπάρχοντα αντικείμενα και προσθέτει το νέο
+  };
+  const removeFromCart = (id) => {
+    setCart(cart.filter((item) => item.cartId !== id)); // Δημιουργεί έναν νέο πίνακα cart που περιέχει όλα τα στοιχεία εκτός εκείνου με το επιλεγμένο cartId
+  };
+  // Υπολογίζει το τελικό ποσό από τα αντικείμενα που έχουν προστεθεί στο καλάθι
+  const calculateTotal = () => {
+    return cart
+      .reduce(
+        (total, item) => total + parseFloat(item.price.replace("€", "")),
+        0
+      )
+      .toFixed(2);
+  };
+  // Ολοκληρώνει την πληρωμή
+  const handleFinalPayment = () => {
+    setPendingItems([...pendingItems, ...cart]); // Μεταφέρει τα αντικείμενα του καλαθιού στα pendingItems
+    setCart([]); // Αδειάζει το καλάθι
+    setIsCartOpen(false); // Κλείνει το modal καλαθιού
+
+    // Ελέγχει αν είμαστε σε tablet mode για να επιστρέψει στην κατάλληλη οθόνη
+    if (isTabletMode) {
+      setView("passengerScreen");
+    } else {
+      setView("home");
+    }
+  };
+
+  // Εναλλάσσει την κατάσταση ενεργού/ανενεργού για τον κλιματισμό στο συγκεκριμένο index
   const handleTemperatureToggle = (index) => {
     const updatedStates = [...isTurnedOn]; // Δημιουργεί ένα αντίγραφο του τρέχοντος πίνακα από states
     updatedStates[index] = !updatedStates[index]; // Αντιστροφή της τιμής στο συγκεκριμένο index
     setIsTurnedOn(updatedStates); // Ενημερώνει το state με τον νέο πίνακα
   };
 
-  // --- NAVIGATION HANDLERS ---
+  // Συνάρτηση που περιέχει όλες τις διεπαφές εντός της οθόνης του τουρίστα
+  const renderCurrentView = () => {
+    switch (view) {
+      case "passengerScreen":
+        return (
+          <>
+            {/* -- ΔΙΕΠΑΦΗ ΤΟΥΡΙΣΤΑ -- */}
+            <PassengerScreen
+              onFullscreen={() => setView("fullscreen")}
+              onOrder={() => setView("shops")}
+              onSights={() => setView("sightsMenu")}
+              onBack={isTabletMode ? handleReturnToBus : () => setView("home")}
+            />
+          </>
+        );
 
-  // Ενεργοποιείται από το κουμπί εξόδου στο HomeScreen -> Μπαίνει σε λειτουργία Tablet (Έξω)
-  const handleExitBus = () => {
-    setIsTabletMode(true);
-    setView("passengerScreen"); // Ξεκινάει στο μενού επιβάτη μέσα στο tablet
+      case "fullscreen":
+        return (
+          <>
+            {/* ΛΕΙΤΟΥΡΓΙΑ: ΦΩΤΟΓΡΑΦΙΑ ΤΗΣ ΠΟΛΗΣ ΠΟΥ ΒΡΙΣΚΕΤΑΙ Ο ΤΟΥΡΙΣΤΑΣ ΣΕ FULLSCREEN */}
+            <Fullscreen
+              currentScenario={currentScenario}
+              onBack={() => setView("passengerScreen")}
+            />
+          </>
+        );
+
+      case "shops":
+        return (
+          <>
+            {/* ΛΕΙΤΟΥΡΓΙΑ: ΔΙΕΠΑΦΗ ΜΕ ΤΑ ΔΙΑΘΕΣΙΜΑ ΚΑΤΑΣΤΗΜΑΤΑ ΓΙΑ ΠΑΡΑΓΓΕΛΙΑ */}
+            <ShopsScreen
+              onSelectShop={handleShopSelect}
+              onBack={() => setView("passengerScreen")}
+            />
+          </>
+        );
+
+      case "menu":
+        return (
+          <>
+            {/* ΜΕΝΟΥ ΤΟΥ ΕΠΙΛΕΓΜΕΝΟΥ ΚΑΤΑΣΤΗΜΑΤΟΣ */}
+            <MenuScreen
+              shopId={selectedShopId}
+              cartCount={cart.length}
+              onAddToCart={addToCart}
+              onBack={() => setView("shops")}
+              onOpenCart={() => setIsCartOpen(true)}
+            />
+          </>
+        );
+
+      case "checkout":
+        return (
+          <>
+            {/* ΔΙΕΠΑΦΗ ΠΛΗΡΩΜΗΣ ΚΑΙ ΟΛΟΚΛΗΡΩΣΗΣ ΠΑΡΑΓΓΕΛΙΑΣ */}
+            <CheckoutScreen
+              cart={cart}
+              total={calculateTotal()}
+              onPay={handleFinalPayment}
+              onBack={() => setView("menu")}
+            />
+          </>
+        );
+
+      case "sightsMenu":
+        return (
+          <>
+            {/* ΛΕΙΤΟΥΡΓΙΑ: ΔΙΕΠΑΦΗ ΜΕ ΤΑ ΔΙΑΘΕΣΙΜΑ ΑΞΙΟΘΕΑΤΑ ΤΗΣ ΑΝΤΙΣΤΟΙΧΗΣ ΠΟΛΗΣ ΠΟΥ ΒΡΙΣΚΕΤΑΙ Ο ΤΟΥΡΙΣΤΑΣ */}
+            <SightsMenuScreen
+              currentScenario={currentScenario}
+              onSelectSight={(sightData) => {
+                setSelectedSight(sightData);
+                setView("sight");
+              }}
+              onBack={() => setView("passengerScreen")}
+            />
+          </>
+        );
+
+      case "sight":
+        return (
+          <>
+            {/* ΔΙΕΠΑΦΗ ΠΟΥ ΠΑΡΟΥΣΙΑΖΕΙ ΑΝΑΛΥΤΙΚΟΤΕΡΑ ΤΟ ΚΑΘΕ ΑΞΙΟΘΕΑΤΟ */}
+            <SightScreen
+              sight={selectedSight}
+              onBack={() => {
+                setSelectedSight(null);
+                setView("sightsMenu");
+              }}
+            />
+          </>
+        );
+    }
   };
 
-  // Επιστροφή στη θέση (μέσα στο λεωφορείο) -> Κλείνει το Tablet layout
-  const handleReturnToBus = () => {
-    setIsTabletMode(false);
-    setView("home");
-  };
-
-  // --- Εμφάνιση στην οθόνη ---
-
+  // ******* Εμφάνιση στην οθόνη *******
   return (
     <>
-      {/* 1. HOME SCREEN (Inside Bus) */}
+      {/* ΑΡΧΙΚΗ ΟΘΟΝΗ */}
       {view === "home" && (
         <HomeScreen
+          // ΠΡΟΣΒΑΣΗ ΣΕ ΟΘΟΝΕΣ ΤΟΥΡΙΣΤΑ-ΟΔΗΓΟΥ ΚΑΙ ΕΞΟΔΟΣ ΑΠΟ ΛΕΩΦΟΡΕΙΟ
           onPassengerScreen={() => setView("passengerScreen")}
-          onExitBus={handleExitBus} // Ενεργοποιεί το Tablet Mode
+          onExitBus={handleExitBus}
           onDriverScreen={() => setView("driverScreen")}
+          // ΜΕΤΑΒΛΗΤΕΣ - STATES ΠΟΥ ΧΡΕΙΑΖΟΝΤΑΙ ΣΤΟ COMPONENT HOMESCREEN ΓΙΑ ΝΑ ΕΚΤΕΛΕΣΕΙ ΔΙΑΦΟΡΕΣ ΛΕΙΤΟΥΡΓΙΕΣ
           currentScenario={currentScenario}
           setCurrentScenario={setCurrentScenario}
-          purchasedItems={purchasedItems}
+          //
           onTravel={handleTravelToNextTown}
+          //
+          purchasedItems={purchasedItems}
+          isBagOpen={isBagOpen}
+          setIsBagOpen={setIsBagOpen}
+          onConsumeItem={handleConsumeItem}
+          //
           isDeliveryModalOpen={isDeliveryModalOpen}
           onCloseDeliveryModal={() => setIsDeliveryModalOpen(false)}
-          onConsumeItem={handleConsumeItem}
-          handleTemperatureToggle={handleTemperatureToggle}
+          //
           isTurnedOn={isTurnedOn}
+          handleTemperatureToggle={handleTemperatureToggle}
+          //
           finalTemperature={finalTemperature}
           setBaseTemperature={setBaseTemperature}
         />
       )}
 
-      {/* 2. TABLET MODE (OUTSIDE) - SINGLE PERMANENT LAYOUT */}
-      {/* ΕΔΩ ΕΙΝΑΙ Η ΑΛΛΑΓΗ: Ελέγχουμε αν είμαστε σε Tablet Mode ΜΙΑ ΦΟΡΑ.
-          Το TabletLayout μένει σταθερό και αλλάζουμε μόνο τα παιδιά (children) του.
-          Έτσι το βίντεο δεν κάνει refresh.
-      */}
-      {isTabletMode && (
+      {/* ΟΛΕΣ ΟΙ ΥΠΟΛΟΙΠΕΣ ΔΙΕΠΑΦΕΣ ΤΟΥ ΤΟΥΡΙΣΤΑ ΣΕ ΜΟΡΦΗ ΕΙΤΕ ΚΑΝΟΝΙΚΗ ΕΙΤΕ ΤΑΜΠΛΕΤ */}
+      {isTabletMode ? (
         <TabletLayout currentScenario={currentScenario}>
-          {/* PASSENGER SCREEN TABLET */}
-          {view === "passengerScreen" && (
-            <PassengerScreen
-              onFullscreen={() => setView("fullscreen")}
-              onOrder={() => setView("shops")}
-              onSights={() => setView("sightsMenu")}
-              onBack={handleReturnToBus}
-            />
-          )}
-
-          {/* FULLSCREEN VIEW */}
-          {view === "fullscreen" && (
-            <Fullscreen
-              currentScenario={currentScenario}
-              onBack={() => setView("passengerScreen")}
-            />
-          )}
-
-          {/* SHOPS LIST */}
-          {view === "shops" && (
-            <ShopsScreen
-              onSelectShop={handleShopSelect}
-              onBack={() => setView("passengerScreen")}
-            />
-          )}
-
-          {/* SHOP MENU */}
-          {view === "menu" && (
-            <MenuScreen
-              shopId={selectedShopId}
-              cartCount={cart.length}
-              onAddToCart={addToCart}
-              onBack={() => setView("shops")}
-              onOpenCart={() => setIsCartOpen(true)}
-            />
-          )}
-
-          {/* CHECKOUT */}
-          {view === "checkout" && (
-            <CheckoutScreen
-              cart={cart}
-              total={calculateTotal()}
-              onPay={handleFinalPayment}
-              onBack={() => setView("menu")}
-            />
-          )}
-
-          {view === "sightsMenu" && (
-            <SightsMenuScreen
-              currentScenario={currentScenario}
-              onSelectSight={(sightData) => {
-                setSelectedSight(sightData); // Save the clicked sight (image, desc, name)
-                setView("sight"); // Change view
-              }}
-              onBack={() => setView("passengerScreen")}
-            />
-          )}
-
-          {view === "sight" && (
-            <SightScreen
-              sight={selectedSight} // Pass the data we saved
-              onBack={() => {
-                setSelectedSight(null); // Clear selection
-                setView("sightsMenu"); // Go back to the list
-              }}
-            />
-          )}
+          {renderCurrentView()}
         </TabletLayout>
+      ) : (
+        renderCurrentView()
       )}
 
-      {/* 3. MONITOR MODE (INSIDE BUS) - NO WRAPPER */}
-      {!isTabletMode && (
-        <>
-          {view === "passengerScreen" && (
-            <PassengerScreen
-              onFullscreen={() => setView("fullscreen")}
-              onOrder={() => setView("shops")}
-              onSights={() => setView("sightsMenu")}
-              onBack={() => setView("home")}
-            />
-          )}
-
-          {view === "fullscreen" && (
-            <Fullscreen
-              currentScenario={currentScenario}
-              onBack={() => setView("passengerScreen")}
-            />
-          )}
-
-          {view === "shops" && (
-            <ShopsScreen
-              onSelectShop={handleShopSelect}
-              onBack={() => setView("passengerScreen")}
-            />
-          )}
-
-          {view === "menu" && (
-            <MenuScreen
-              shopId={selectedShopId}
-              cartCount={cart.length}
-              onAddToCart={addToCart}
-              onBack={() => setView("shops")}
-              onOpenCart={() => setIsCartOpen(true)}
-            />
-          )}
-
-          {view === "checkout" && (
-            <CheckoutScreen
-              cart={cart}
-              total={calculateTotal()}
-              onPay={handleFinalPayment}
-              onBack={() => setView("menu")}
-            />
-          )}
-
-          {view === "sightsMenu" && (
-            <SightsMenuScreen
-              currentScenario={currentScenario}
-              onSelectSight={(sightData) => {
-                setSelectedSight(sightData); // Save the clicked sight (image, desc, name)
-                setView("sight"); // Change view
-              }}
-              onBack={() => setView("passengerScreen")}
-            />
-          )}
-
-          {view === "sight" && (
-            <SightScreen
-              sight={selectedSight} // Pass the data we saved
-              onBack={() => {
-                setSelectedSight(null); // Clear selection
-                setView("sightsMenu"); // Go back to the list
-              }}
-            />
-          )}
-
-          {/* 4. DRIVER SCREEN (Μόνο αν δεν είμαστε σε Tablet Mode) */}
-          {view === "driverScreen" && (
-            // <DriverScreen onBack={() => setView("home")} />
-            <div style={{ color: "white", padding: "20px" }}>
-              Driver Screen Placeholder
-              <button
-                onClick={() => setView("home")}
-                className="btn brown"
-                style={{
-                  marginLeft: "20px",
-                  height: "auto",
-                  minHeight: "50px",
-                }}
-              >
-                Back
-              </button>
-            </div>
-          )}
-        </>
-      )}
+      {/* ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ */}
+      {view === "driverScreen" && <DriverScren />}
 
       {/* Modal καλαθιού */}
       {isCartOpen && (
