@@ -14,11 +14,11 @@ import CheckoutScreen from "./screens/Passenger/Order/CheckoutScreen";
 
 export default function App() {
   // ******* Μεταβλητές - States *******
-  const [view, setView] = useState("home"); // Δείχνει ποια οθόνη είναι ενεργή και εμφανίζεται: "home" | "shops" | "menu" | "checkout"
+  const [view, setView] = useState("home"); // Δείχνει ποια οθόνη είναι ενεργή και εμφανίζεται
   const [isTabletMode, setIsTabletMode] = useState(false); // Κρατάει το state για το αν είμαστε σε tablet mode ή όχι
   const [currentScenario, setCurrentScenario] = useState("insideClosedTown1"); // Κρατάει το name για το αντίστοιχο βίντεο φόντου
 
-  const [selectedSight, setSelectedSight] = useState(null); // New state for holding the active sight data
+  const [selectedSight, setSelectedSight] = useState(null); // Κρατάει το αντικείμενο που περιλαμβάνει όλες τις πληροφορίες του αξιοθέατου
 
   // --Παραγγελίες--
   const [selectedShopId, setSelectedShopId] = useState(null); // Κρατάει το id του επιλεγμένου καταστήματος
