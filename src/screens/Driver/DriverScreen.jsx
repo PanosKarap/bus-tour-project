@@ -1,27 +1,28 @@
 import React from "react";
-import storeIcon from "../../assets/passenger/store.svg";
-import fullscreenIcon from "../../assets/passenger/fullscreen.svg";
-import sightsIcon from "../../assets/passenger/sights.svg";
+import roofIcon from "../../assets/driver/roof.svg";
+import broomIcon from "../../assets/driver/broom.svg";
+import powerIcon from "../../assets/driver/power.svg";
 
 export default function DriverScreen({
   onOpenCloseRoof,
   onUseBroom,
   onViewPowerUsage,
+  onBack,
 }) {
   return (
-    <div className="container home-bg">
+    <div className="container driver-bg">
       <div className="button-container">
-        <button className="btn brown" onClick={onFullscreen}>
-          <img src={fullscreenIcon} className="btn-icon" alt="Order" />
-          <span>Πλήρης Οθόνη</span>
+        <button className="btn blue" onClick={onOpenCloseRoof}>
+          <img src={roofIcon} className="btn-icon" alt="Order" />
+          <span>Διαχείριση Οροφής</span>
         </button>
-        <button className="btn brown" onClick={onOrder}>
-          <img src={storeIcon} className="btn-icon" alt="Order" />
-          <span>Παραγγελία</span>
+        <button className="btn blue" onClick={onUseBroom}>
+          <img src={broomIcon} className="btn-icon" alt="Order" />
+          <span>Έξυπνος Καθαρισμός</span>
         </button>
-        <button className="btn brown" onClick={onSights}>
-          <img src={sightsIcon} className="btn-icon" alt="Order" />
-          <span>Αξιοθέατα</span>
+        <button className="btn blue" onClick={onViewPowerUsage}>
+          <img src={powerIcon} className="btn-icon" alt="Order" />
+          <span>Κατανάλωση ενέργειας</span>
         </button>
       </div>
       <button className="btn-back" onClick={onBack}>

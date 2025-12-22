@@ -7,7 +7,7 @@ import PassengerScreen from "./screens/Passenger/PassengerScreen";
 import Fullscreen from "./screens/Passenger/Fullscreen/Fullscreen";
 import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
 import SightScreen from "./screens/Passenger/Sights/SightScreen";
-// import DriverScreen from "./screens/Driver/DriverScreen";
+import DriverScreen from "./screens/Driver/DriverScreen";
 import ShopsScreen from "./screens/Passenger/Order/ShopsScreen";
 import MenuScreen from "./screens/Passenger/Order/MenuScreen";
 import CheckoutScreen from "./screens/Passenger/Order/CheckoutScreen";
@@ -270,9 +270,10 @@ export default function App() {
       {/* ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ */}
       {view === "driverScreen" && (
         <DriverScreen
-          onOpenCloseRoof={handleOpenCloseRoof}
+          // onOpenCloseRoof={handleOpenCloseRoof}
           onUseBroom={() => setView("broomScreen")}
           onViewPowerUsage={() => setView("powerUsageScreen")}
+          onBack={() => setView("home")}
         />
       )}
 

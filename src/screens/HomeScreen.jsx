@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import monitorImage from "../assets/passenger/passenger-screen.webp";
+import passengerMonitorImage from "../assets/passenger/passenger-screen.webp";
+import driverMonitorImage from "../assets/driver/driver-screen.webp";
 import inactiveColdScreenImage from "../assets/home/inactive-temp-cold-screen.svg";
 import inactiveHotScreenImage from "../assets/home/inactive-temp-hot-screen.svg";
 import activeColdScreenImage from "../assets/home/active-temp-cold-screen.svg";
@@ -138,28 +139,28 @@ export default function HomeScreen({
 
           {/* Αριστερή οθόνη τουρίστα */}
           <img
-            src={monitorImage}
+            src={passengerMonitorImage}
             alt="Monitor 1"
             className="monitor-img screen-1"
             onClick={onPassengerScreen}
           />
           {/* Οθόνη οδηγού */}
           <img
-            src={monitorImage}
+            src={driverMonitorImage}
             alt="Monitor 2"
             className="monitor-img screen-2"
-            onClick={onPassengerScreen}
+            onClick={onDriverScreen}
           />
           {/* Δεξιά πρώτη οθόνη τουρίστα */}
           <img
-            src={monitorImage}
+            src={passengerMonitorImage}
             alt="Monitor 3"
             className="monitor-img screen-3"
             onClick={onPassengerScreen}
           />
           {/* Δεξιά δεύτερη οθόνη τουρίστα */}
           <img
-            src={monitorImage}
+            src={passengerMonitorImage}
             alt="Monitor 4"
             className="monitor-img screen-4"
             onClick={onPassengerScreen}
