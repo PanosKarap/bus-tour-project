@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import bgImage from "../../../assets/passenger/order/coffee-bg.jpg";
+import bgImage from "../../../assets/passenger/order/coffee-bg.webp";
 import Modal from "../../../components/Modal";
 
 export default function CheckoutScreen({ cart, total, onPay, onBack }) {

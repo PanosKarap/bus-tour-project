@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import monitorImage from "../assets/passenger/passenger-screen.png";
+import monitorImage from "../assets/passenger/passenger-screen.webp";
 import inactiveColdScreenImage from "../assets/home/inactive-temp-cold-screen.svg";
 import inactiveHotScreenImage from "../assets/home/inactive-temp-hot-screen.svg";
 import activeColdScreenImage from "../assets/home/active-temp-cold-screen.svg";
@@ -12,11 +12,11 @@ import exit from "../assets/home/exit.svg";
 
 import Modal from "../components/Modal";
 
-import BusTownClosed1 from "../assets/home/busbackground/BusTownClosed1.mp4";
-import BusTownClosed2 from "../assets/home/busbackground/BusTownClosed2.mp4";
-import BusTownClosed3 from "../assets/home/busbackground/BusTownClosed3.mp4";
-import BusTownOpen1 from "../assets/home/busbackground/BusTownOpen1.mp4";
-import BusTownOpen3 from "../assets/home/busbackground/BusTownOpen3.mp4";
+import BusTownClosed1 from "../assets/home/busbackground/BusTownClosed1.webm";
+import BusTownClosed2 from "../assets/home/busbackground/BusTownClosed2.webm";
+import BusTownClosed3 from "../assets/home/busbackground/BusTownClosed3.webm";
+import BusTownOpen1 from "../assets/home/busbackground/BusTownOpen1.webm";
+import BusTownOpen3 from "../assets/home/busbackground/BusTownOpen3.webm";
 
 export default function HomeScreen({
   onPassengerScreen,

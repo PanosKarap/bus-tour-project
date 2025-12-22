@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { CATEGORIES, SHOPS_DATA } from "../../../data/mockData";
-import bgImage from "../../../assets/passenger/order/coffee-bg.jpg";
+import bgImage from "../../../assets/passenger/order/coffee-bg.webp";
 import Modal from "../../../components/Modal";
 
 export default function MenuScreen({

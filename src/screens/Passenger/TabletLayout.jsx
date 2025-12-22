@@ -1,9 +1,9 @@
 import React from "react";
 import "../../App.css";
 
-import OutsideBusTown1 from "../../assets/home/busbackground/OutsideBusTown1.mp4";
-import OutsideBusTown2 from "../../assets/home/busbackground/OutsideBusTown2.mp4";
-import OutsideBusTown3 from "../../assets/home/busbackground/OutsideBusTown3.mp4";
+import OutsideBusTown1 from "../../assets/home/busbackground/OutsideBusTown1.webm";
+import OutsideBusTown2 from "../../assets/home/busbackground/OutsideBusTown2.webm";
+import OutsideBusTown3 from "../../assets/home/busbackground/OutsideBusTown3.webm";
 
 export default function TabletLayout({ children, currentScenario }) {
   let videoSource = OutsideBusTown1;

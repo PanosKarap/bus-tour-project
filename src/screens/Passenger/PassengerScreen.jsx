@@ -10,7 +10,7 @@ export default function PassengerScreen({
   onSights,
 }) {
   return (
-    <div className="container home-bg">
+    <div className="container passenger-bg">
       <div className="button-container">
         <button className="btn brown" onClick={onFullscreen}>
           <img src={fullscreenIcon} className="btn-icon" alt="Order" />

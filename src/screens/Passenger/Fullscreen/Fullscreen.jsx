@@ -1,9 +1,9 @@
 import React from "react";
 
 // --- IMAGE IMPORTS ---
-import FullscreenTown1 from "../../../assets/passenger/fullscreentown/FullscreenTown1.png";
-import FullscreenTown2 from "../../../assets/passenger/fullscreentown/FullscreenTown2.png";
-import FullscreenTown3 from "../../../assets/passenger/fullscreentown/FullscreenTown3.png";
+import FullscreenTown1 from "../../../assets/passenger/fullscreentown/FullscreenTown1.webp";
+import FullscreenTown2 from "../../../assets/passenger/fullscreentown/FullscreenTown2.webp";
+import FullscreenTown3 from "../../../assets/passenger/fullscreentown/FullscreenTown3.webp";
 
 export default function Fullscreen({ currentScenario, onBack }) {
   let backgroundImage = FullscreenTown1;

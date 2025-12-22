@@ -1,6 +1,6 @@
 import React from "react";
 import { SHOPS_DATA } from "../../../data/mockData";
-import bgImage from "../../../assets/passenger/order/coffee-bg.jpg";
+import bgImage from "../../../assets/passenger/order/coffee-bg.webp";
 
 export default function ShopsScreen({ onSelectShop, onBack }) {
   return (

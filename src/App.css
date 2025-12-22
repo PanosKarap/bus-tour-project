@@ -34,12 +34,16 @@ body {
   background-attachment: fixed;
 }
 
-.home-bg {
+.passenger-bg {
   background: radial-gradient(
     circle at center,
     #4a3b30 0%,
     var(--bg-dark) 100%
   );
+}
+
+.driver-bg {
+  background: radial-gradient(circle at center, #415b74 0%, #1c2832 100%);
 }
 
 .container.menu-mode {

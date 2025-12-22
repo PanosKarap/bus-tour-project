@@ -268,7 +268,13 @@ export default function App() {
       )}
 
       {/* ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ */}
-      {view === "driverScreen" && <DriverScren />}
+      {view === "driverScreen" && (
+        <DriverScreen
+          onOpenCloseRoof={handleOpenCloseRoof}
+          onUseBroom={() => setView("broomScreen")}
+          onViewPowerUsage={() => setView("powerUsageScreen")}
+        />
+      )}
 
       {/* Modal καλαθιού */}
       {isCartOpen && (

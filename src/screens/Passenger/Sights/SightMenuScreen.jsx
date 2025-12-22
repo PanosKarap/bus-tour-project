@@ -1,17 +1,17 @@
 import React from "react";
 
 // --- IMAGES ---
-import Town1Sight1 from "../../../assets/passenger/sights/town1/Town1Sight1.png";
-import Town1Sight2 from "../../../assets/passenger/sights/town1/Town1Sight2.png";
-import Town1Sight3 from "../../../assets/passenger/sights/town1/Town1Sight3.png";
+import Town1Sight1 from "../../../assets/passenger/sights/town1/Town1Sight1.webp";
+import Town1Sight2 from "../../../assets/passenger/sights/town1/Town1Sight2.webp";
+import Town1Sight3 from "../../../assets/passenger/sights/town1/Town1Sight3.webp";
 
-import Town2Sight1 from "../../../assets/passenger/sights/town2/Town2Sight1.png";
-import Town2Sight2 from "../../../assets/passenger/sights/town2/Town2Sight2.png";
-import Town2Sight3 from "../../../assets/passenger/sights/town2/Town2Sight3.png";
+import Town2Sight1 from "../../../assets/passenger/sights/town2/Town2Sight1.webp";
+import Town2Sight2 from "../../../assets/passenger/sights/town2/Town2Sight2.webp";
+import Town2Sight3 from "../../../assets/passenger/sights/town2/Town2Sight3.webp";
 
-import Town3Sight1 from "../../../assets/passenger/sights/town3/Town3Sight1.png";
-import Town3Sight2 from "../../../assets/passenger/sights/town3/Town3Sight2.png";
-import Town3Sight3 from "../../../assets/passenger/sights/town3/Town3Sight3.png";
+import Town3Sight1 from "../../../assets/passenger/sights/town3/Town3Sight1.webp";
+import Town3Sight2 from "../../../assets/passenger/sights/town3/Town3Sight2.webp";
+import Town3Sight3 from "../../../assets/passenger/sights/town3/Town3Sight3.webp";
 
 export default function SightsMenuScreen({
   onSelectSight,
