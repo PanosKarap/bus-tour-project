@@ -31,6 +31,9 @@ export default function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // Κρατάει τα αντικείμενα που έχουν αγοραστεί και παραδοθεί στον χρήστη και βρίσκονται στην τσάντα του
   const [isBagOpen, setIsBagOpen] = useState(false); // Ελέγχει αν το modal της τσάντας με τα αγορασμένα αντικείμενα είναι ανοιχτό
 
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [confirmationMessage, setConfirmationMessage] = useState("");
+
   // --Θερμοκρασίες και κλιματισμοί--
   const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
   const [isTurnedOn, setIsTurnedOn] = useState([
@@ -120,6 +123,29 @@ export default function App() {
       setView("passengerScreen");
     } else {
       setView("home");
+    }
+  };
+
+  const handleOpenCloseRoof = () => {
+    if (currentScenario === "insideClosedTown1") {
+      setCurrentScenario("insideOpenTown1");
+      setConfirmationMessage("Η οροφή άνοιξε με επιτυχία!");
+      setIsConfirmationModalOpen(true);
+    } else if (currentScenario === "insideOpenTown1") {
+      setCurrentScenario("insideClosedTown1");
+      setConfirmationMessage("Η οροφή έκλεισε με επιτυχία!");
+      setIsConfirmationModalOpen(true);
+    } else if (currentScenario === "insideClosedTown2") {
+      setConfirmationMessage("Έξω βρέχει! Καλύτερα να μην ανοίξεις την οροφή!");
+      setIsConfirmationModalOpen(true);
+    } else if (currentScenario === "insideClosedTown3") {
+      setCurrentScenario("insideOpenTown3");
+      setConfirmationMessage("Η οροφή άνοιξε με επιτυχία!");
+      setIsConfirmationModalOpen(true);
+    } else if (currentScenario === "insideOpenTown3") {
+      setCurrentScenario("insideClosedTown3");
+      setConfirmationMessage("Η οροφή έκλεισε με επιτυχία!");
+      setIsConfirmationModalOpen(true);
     }
   };
 
@@ -270,7 +296,7 @@ export default function App() {
       {/* ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ */}
       {view === "driverScreen" && (
         <DriverScreen
-          // onOpenCloseRoof={handleOpenCloseRoof}
+          onOpenCloseRoof={handleOpenCloseRoof}
           onUseBroom={() => setView("broomScreen")}
           onViewPowerUsage={() => setView("powerUsageScreen")}
           onBack={() => setView("home")}
@@ -351,6 +377,21 @@ export default function App() {
               </button>
             )}
           </div>
+        </Modal>
+      )}
+
+      {/* Modal Επιβεβαίωσης */}
+      {isConfirmationModalOpen && (
+        <Modal className="blue-border">
+          <h2>{confirmationMessage}</h2>
+          <button
+            className="btn-cancel"
+            onClick={() => {
+              setIsConfirmationModalOpen(false);
+            }}
+          >
+            Κλείσιμο
+          </button>
         </Modal>
       )}
     </>

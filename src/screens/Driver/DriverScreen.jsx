@@ -14,7 +14,10 @@ export default function DriverScreen({
       <div className="button-container">
         <button className="btn blue" onClick={onOpenCloseRoof}>
           <img src={roofIcon} className="btn-icon" alt="Order" />
-          <span>Διαχείριση Οροφής</span>
+          <span>
+            Άνοιγμα / Κλείσιμο <br />
+            Οροφής
+          </span>
         </button>
         <button className="btn blue" onClick={onUseBroom}>
           <img src={broomIcon} className="btn-icon" alt="Order" />

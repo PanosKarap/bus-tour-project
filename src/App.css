@@ -327,6 +327,10 @@ body {
   animation: popIn 0.3s ease;
 }
 
+.blue-border {
+  border: 5px solid var(--bg-blue);
+}
+
 @keyframes popIn {
   from {
     transform: scale(0.8);
@@ -616,19 +620,18 @@ body {
 }
 
 .screen-1 {
-  top: 63.2%;
+  top: 63.1%;
   left: 14.5%;
   width: 9.7%;
   height: 10.5%;
-  rotate: 0.5deg;
+  rotate: 0.3deg;
 }
 
 .screen-2 {
-  top: 65.4%;
+  top: 65.2%;
   left: 51%;
   width: 12.5%;
   height: 10.8%;
-  rotate: 0.5deg;
 }
 
 .screen-3 {
@@ -640,13 +643,13 @@ body {
 
 .screen-4 {
   top: 64.3%;
-  left: 92.3%;
+  left: 92.2%;
   width: 8.3%;
   height: 10%;
 }
 
 .layout-town2 .screen-1 {
-  left: 15.3%;
+  left: 15.2%;
 }
 .layout-town2 .screen-2 {
   left: 51.7%;
@@ -655,7 +658,7 @@ body {
   left: 74.8%;
 }
 .layout-town2 .screen-4 {
-  left: 92.9%;
+  left: 92.8%;
 }
 
 .layout-town3 .screen-1 {
@@ -668,7 +671,7 @@ body {
   left: 74.35%;
 }
 .layout-town3 .screen-4 {
-  left: 92.4%;
+  left: 92.33%;
 }
 
 .bag-container {
