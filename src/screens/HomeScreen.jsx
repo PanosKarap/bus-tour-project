@@ -36,6 +36,7 @@ export default function HomeScreen({
   handleTemperatureToggle,
   finalTemperature,
   setBaseTemperature,
+  setPowerUsage,
 }) {
   let videoSource;
   let layoutClass;
@@ -60,6 +61,7 @@ export default function HomeScreen({
     if (currentScenario !== "insideClosedTown1") {
       setCurrentScenario("insideClosedTown1");
       setBaseTemperature(32);
+      setPowerUsage(80);
       onTravel?.();
     }
   };
@@ -67,6 +69,7 @@ export default function HomeScreen({
     if (currentScenario !== "insideClosedTown2") {
       setCurrentScenario("insideClosedTown2");
       setBaseTemperature(18);
+      setPowerUsage(80);
       onTravel?.();
     }
   };
@@ -74,6 +77,7 @@ export default function HomeScreen({
     if (currentScenario !== "insideClosedTown3") {
       setCurrentScenario("insideClosedTown3");
       setBaseTemperature(28);
+      setPowerUsage(80);
       onTravel?.();
     }
   };

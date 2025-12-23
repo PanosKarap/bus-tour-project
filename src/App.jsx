@@ -8,6 +8,7 @@ import Fullscreen from "./screens/Passenger/Fullscreen/Fullscreen";
 import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
 import SightScreen from "./screens/Passenger/Sights/SightScreen";
 import DriverScreen from "./screens/Driver/DriverScreen";
+import PowerUsageScreen from "./screens/Driver/PowerUsageScreen/PowerUsageScreen";
 import ShopsScreen from "./screens/Passenger/Order/ShopsScreen";
 import MenuScreen from "./screens/Passenger/Order/MenuScreen";
 import CheckoutScreen from "./screens/Passenger/Order/CheckoutScreen";
@@ -31,8 +32,10 @@ export default function App() {
   const [purchasedItems, setPurchasedItems] = useState([]); // Κρατάει τα αντικείμενα που έχουν αγοραστεί και παραδοθεί στον χρήστη και βρίσκονται στην τσάντα του
   const [isBagOpen, setIsBagOpen] = useState(false); // Ελέγχει αν το modal της τσάντας με τα αγορασμένα αντικείμενα είναι ανοιχτό
 
-  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
-  const [confirmationMessage, setConfirmationMessage] = useState("");
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // Ελέγχει αν το modal επιβεβαίωσης για το άνοιγμα/κλείσιμο οροφής είναι ανοιχτό
+  const [confirmationMessage, setConfirmationMessage] = useState(""); // Κρατάει το message του modal της επιβεβαίωσης για το άνοιγμα/κλείσιμο
+
+  const [powerUsage, setPowerUsage] = useState(80);
 
   // --Θερμοκρασίες και κλιματισμοί--
   const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
@@ -56,6 +59,18 @@ export default function App() {
     return baseTemperature + modifier;
   };
   const finalTemperature = `${calculateTotalTemperature()}°C`; // Κρατάει την τελική θερμοκρασία σε μορφή string με °C για εμφάνιση στην οθόνη
+
+  // Υπολογίζει την τελική κατανάλωση ενέργειας με βάση τους ενεργούς κλιματισμούς
+  const calculateTotalPowerUsage = () => {
+    let modifier = 0;
+    isTurnedOn.forEach((isTurnedOn) => {
+      if (isTurnedOn) {
+        modifier += 5;
+      }
+    });
+    return powerUsage + modifier;
+  };
+  const finalPowerUsage = `${calculateTotalPowerUsage()}`; // Κρατάει την τελική θερμοκρασία σε μορφή string με °C για εμφάνιση στην οθόνη
 
   // ******* Συναρτήσεις *******
 
@@ -129,10 +144,14 @@ export default function App() {
   const handleOpenCloseRoof = () => {
     if (currentScenario === "insideClosedTown1") {
       setCurrentScenario("insideOpenTown1");
+      setBaseTemperature(27);
+      setPowerUsage(100);
       setConfirmationMessage("Η οροφή άνοιξε με επιτυχία!");
       setIsConfirmationModalOpen(true);
     } else if (currentScenario === "insideOpenTown1") {
       setCurrentScenario("insideClosedTown1");
+      setBaseTemperature(32);
+      setPowerUsage(80);
       setConfirmationMessage("Η οροφή έκλεισε με επιτυχία!");
       setIsConfirmationModalOpen(true);
     } else if (currentScenario === "insideClosedTown2") {
@@ -140,10 +159,14 @@ export default function App() {
       setIsConfirmationModalOpen(true);
     } else if (currentScenario === "insideClosedTown3") {
       setCurrentScenario("insideOpenTown3");
+      setBaseTemperature(23);
+      setPowerUsage(100);
       setConfirmationMessage("Η οροφή άνοιξε με επιτυχία!");
       setIsConfirmationModalOpen(true);
     } else if (currentScenario === "insideOpenTown3") {
       setCurrentScenario("insideClosedTown3");
+      setBaseTemperature(28);
+      setPowerUsage(80);
       setConfirmationMessage("Η οροφή έκλεισε με επιτυχία!");
       setIsConfirmationModalOpen(true);
     }
@@ -281,6 +304,8 @@ export default function App() {
           //
           finalTemperature={finalTemperature}
           setBaseTemperature={setBaseTemperature}
+          //
+          setPowerUsage={setPowerUsage}
         />
       )}
 
@@ -299,7 +324,15 @@ export default function App() {
           onOpenCloseRoof={handleOpenCloseRoof}
           onUseBroom={() => setView("broomScreen")}
           onViewPowerUsage={() => setView("powerUsageScreen")}
+          finalPowerUsage={finalPowerUsage}
           onBack={() => setView("home")}
+        />
+      )}
+
+      {view === "powerUsageScreen" && (
+        <PowerUsageScreen
+          finalPowerUsage={finalPowerUsage}
+          onBack={() => setView("driverScreen")}
         />
       )}
 
