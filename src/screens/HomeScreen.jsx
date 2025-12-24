@@ -6,6 +6,7 @@ import inactiveHotScreenImage from "../assets/home/inactive-temp-hot-screen.svg"
 import activeColdScreenImage from "../assets/home/active-temp-cold-screen.svg";
 import activeHotScreenImage from "../assets/home/active-temp-hot-screen.svg";
 import bagImage from "../assets/home/bag.svg";
+import onlineHelpImage from "../assets/home/online-help.svg";
 import mapImage from "../assets/home/map.svg";
 import tempImage from "../assets/home/temperature.svg";
 import marker from "../assets/home/marker.svg";
@@ -23,6 +24,7 @@ export default function HomeScreen({
   onPassengerScreen,
   onExitBus,
   onDriverScreen,
+  onOnlineHelpScreen,
   currentScenario,
   setCurrentScenario,
   onTravel,
@@ -242,6 +244,14 @@ export default function HomeScreen({
               className="shopping-bag-img"
             />
           </div>
+
+          {/* Εικονίδιο online help */}
+          <img
+            src={onlineHelpImage}
+            alt="Online Help"
+            className="online-help-img"
+            onClick={onOnlineHelpScreen}
+          />
         </div>
 
         {/* --- MODALS --- */}

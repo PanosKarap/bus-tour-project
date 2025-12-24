@@ -714,6 +714,16 @@ body {
   border: 2px solid white;
 }
 
+.online-help-img {
+  width: 3%;
+  position: absolute;
+  top: 92.5%;
+  left: 96%;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+  cursor: pointer;
+  pointer-events: auto;
+}
+
 .success-modal-content {
   display: flex;
   flex-direction: column;

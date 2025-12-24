@@ -3,6 +3,7 @@ import "./App.css";
 import Modal from "./components/Modal";
 import TabletLayout from "./screens/Passenger/TabletLayout";
 import HomeScreen from "./screens/HomeScreen";
+import OnlineHelpScreen from "./screens/OnlineHelpScreen";
 import PassengerScreen from "./screens/Passenger/PassengerScreen";
 import Fullscreen from "./screens/Passenger/Fullscreen/Fullscreen";
 import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
@@ -281,10 +282,11 @@ export default function App() {
       {/* ΑΡΧΙΚΗ ΟΘΟΝΗ */}
       {view === "home" && (
         <HomeScreen
-          // ΠΡΟΣΒΑΣΗ ΣΕ ΟΘΟΝΕΣ ΤΟΥΡΙΣΤΑ-ΟΔΗΓΟΥ ΚΑΙ ΕΞΟΔΟΣ ΑΠΟ ΛΕΩΦΟΡΕΙΟ
+          // ΠΡΟΣΒΑΣΗ ΣΕ ΟΘΟΝΕΣ ΤΟΥΡΙΣΤΑ-ΟΔΗΓΟΥ, ΕΞΟΔΟΣ ΑΠΟ ΛΕΩΦΟΡΕΙΟ KAI ONLINE ΒΟΗΘΕΙΑ
           onPassengerScreen={() => setView("passengerScreen")}
           onExitBus={handleExitBus}
           onDriverScreen={() => setView("driverScreen")}
+          onOnlineHelpScreen={() => setView("onlineHelp")}
           // ΜΕΤΑΒΛΗΤΕΣ - STATES ΠΟΥ ΧΡΕΙΑΖΟΝΤΑΙ ΣΤΟ COMPONENT HOMESCREEN ΓΙΑ ΝΑ ΕΚΤΕΛΕΣΕΙ ΔΙΑΦΟΡΕΣ ΛΕΙΤΟΥΡΓΙΕΣ
           currentScenario={currentScenario}
           setCurrentScenario={setCurrentScenario}
@@ -334,6 +336,10 @@ export default function App() {
           finalPowerUsage={finalPowerUsage}
           onBack={() => setView("driverScreen")}
         />
+      )}
+
+      {view === "onlineHelp" && (
+        <OnlineHelpScreen onBack={() => setView("home")} />
       )}
 
       {/* Modal καλαθιού */}
