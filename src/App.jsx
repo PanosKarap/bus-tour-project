@@ -9,6 +9,7 @@ import Fullscreen from "./screens/Passenger/Fullscreen/Fullscreen";
 import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
 import SightScreen from "./screens/Passenger/Sights/SightScreen";
 import DriverScreen from "./screens/Driver/DriverScreen";
+import BroomScreen from "./screens/Driver/BroomScreen/BroomScreen";
 import PowerUsageScreen from "./screens/Driver/PowerUsageScreen/PowerUsageScreen";
 import ShopsScreen from "./screens/Passenger/Order/ShopsScreen";
 import MenuScreen from "./screens/Passenger/Order/MenuScreen";
@@ -329,6 +330,10 @@ export default function App() {
           finalPowerUsage={finalPowerUsage}
           onBack={() => setView("home")}
         />
+      )}
+
+      {view === "broomScreen" && (
+        <BroomScreen onBack={() => setView("driverScreen")} />
       )}
 
       {view === "powerUsageScreen" && (
