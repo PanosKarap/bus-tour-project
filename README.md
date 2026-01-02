@@ -1,11 +1,11 @@
-# Bus Tour Project | Not finished
+# Bus Tour Project
 
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%201.png?raw=true)
-![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%202.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%203.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%204.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%205.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%206.png?raw=true)
+![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%202.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%207.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%208.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%209.png?raw=true)
@@ -13,6 +13,7 @@
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2011.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2012.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2013.png?raw=true)
+![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2021.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2014.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2015.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2016.png?raw=true)
@@ -20,5 +21,4 @@
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2018.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2019.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2020.png?raw=true)
-![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2021.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%2022.png?raw=true)
