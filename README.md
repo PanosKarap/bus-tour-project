@@ -1,5 +1,3 @@
-# Bus Tour Project
-
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%201.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%203.png?raw=true)
 ![image alt](https://github.com/PanosKarap/bus-tour-project/blob/main/presentation/Presentation%204.png?raw=true)
