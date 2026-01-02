@@ -10,6 +10,10 @@ import SightsMenuScreen from "./screens/Passenger/Sights/SightMenuScreen";
 import SightScreen from "./screens/Passenger/Sights/SightScreen";
 import DriverScreen from "./screens/Driver/DriverScreen";
 import BroomScreen from "./screens/Driver/BroomScreen/BroomScreen";
+import ResultScreen from "./screens/Driver/BroomScreen/ResultScreen";
+import SpeedScreen from "./screens/Driver/BroomScreen/SpeedScreen";
+import SpotsScreen from "./screens/Driver/BroomScreen/SpotsScreen";
+import TimeScreen from "./screens/Driver/BroomScreen/TimeScreen";
 import PowerUsageScreen from "./screens/Driver/PowerUsageScreen/PowerUsageScreen";
 import ShopsScreen from "./screens/Passenger/Order/ShopsScreen";
 import MenuScreen from "./screens/Passenger/Order/MenuScreen";
@@ -38,6 +42,11 @@ export default function App() {
   const [confirmationMessage, setConfirmationMessage] = useState(""); // Κρατάει το message του modal της επιβεβαίωσης για το άνοιγμα/κλείσιμο
 
   const [powerUsage, setPowerUsage] = useState(80);
+
+  // --Σκούπα--
+  const [broomSpeed, setBroomSpeed] = useState("Medium");
+  const [broomSpots, setBroomSpots] = useState("mid");
+  const [broomTime, setBroomTime] = useState(5);
 
   // --Θερμοκρασίες και κλιματισμοί--
   const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
@@ -333,7 +342,43 @@ export default function App() {
       )}
 
       {view === "broomScreen" && (
-        <BroomScreen onBack={() => setView("driverScreen")} />
+        <BroomScreen
+          onBack={() => setView("driverScreen")}
+          onResultScreen={() => setView("resultScreen")}
+          onChangeSpeed={() => setView("speedScreen")}
+          onChangeSpots={() => setView("spotsScreen")}
+          onChangeTime={() => setView("timeScreen")}
+        />
+      )}
+
+      {view === "resultScreen" && (
+        <ResultScreen
+          onBack={() => setView("broomScreen")}
+          broomSpeed={broomSpeed}
+          broomSpots={broomSpots}
+          broomTime={broomTime}
+        />
+      )}
+      {view === "speedScreen" && (
+        <SpeedScreen
+          onBack={() => setView("broomScreen")}
+          broomSpeed={broomSpeed}
+          setBroomSpeed={setBroomSpeed}
+        />
+      )}
+      {view === "spotsScreen" && (
+        <SpotsScreen
+          onBack={() => setView("broomScreen")}
+          broomSpots={broomSpots}
+          setBroomSpots={setBroomSpots}
+        />
+      )}
+      {view === "timeScreen" && (
+        <TimeScreen
+          onBack={() => setView("broomScreen")}
+          broomTime={broomTime}
+          setBroomTime={setBroomTime}
+        />
       )}
 
       {view === "powerUsageScreen" && (

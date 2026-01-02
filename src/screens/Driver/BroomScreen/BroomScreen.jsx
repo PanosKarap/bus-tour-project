@@ -9,7 +9,7 @@ export default function BroomScreen({
   onChangeSpeed,
   onChangeTime,
   onChangeSpots,
-  onStart,
+  onResultScreen,
   onBack,
 }) {
   // Helper style objects to keep the JSX clean and consistent
@@ -27,23 +27,6 @@ export default function BroomScreen({
 
   return (
     <div className="container" style={{ backgroundImage: `url(${bgImage})` }}>
-      <div className="header-container">
-        <h2
-          className="header-title"
-          style={{
-            fontSize: "3rem",
-            color: "white",
-            fontWeight: "900",
-            textAlign: "center",
-            marginBottom: "30px", // Reduced margin slightly
-            marginTop: "0",
-            textShadow: "0 4px 10px rgba(0,0,0,0.5)",
-          }}
-        >
-          Εφαρμογή σκούπας
-        </h2>
-      </div>
-
       <div
         className="button-container"
         style={{
@@ -92,7 +75,11 @@ export default function BroomScreen({
           <span>Επιλογή περιοχών</span>
         </button>
 
-        <button className="btn blue" onClick={onStart} style={buttonStyle}>
+        <button
+          className="btn blue"
+          onClick={onResultScreen}
+          style={buttonStyle}
+        >
           <img
             src={startIcon}
             className="btn-icon"
