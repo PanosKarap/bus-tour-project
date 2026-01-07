@@ -1,0 +1,73 @@
+/* Specific overrides for this screen's container */
+.sights-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.sights-title {
+  color: white;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.sights-grid {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* --- Sight Card Styling --- */
+.sight-card {
+  width: 350px;
+  height: 350px;
+  position: relative;
+
+  /* Resetting/Overriding standard button defaults */
+  padding: 0;
+  border: none;
+  display: block; /* Overrides the flex usually found on .btn */
+
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+
+  /* Background basics */
+  background-color: var(--coffee-accent);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  transition: transform 0.2s ease;
+}
+
+.sight-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+}
+
+.sight-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: white;
+  padding: 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.3rem;
+
+  /* Glassmorphism effect */
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+}
+
+.sights-back-btn {
+  margin-top: 30px;
+}

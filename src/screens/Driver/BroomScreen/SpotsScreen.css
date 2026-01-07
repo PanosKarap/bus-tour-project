@@ -1,0 +1,74 @@
+/* --- Layout Container --- */
+.spots-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* --- Header Styling (Driver Theme) --- */
+.spots-header-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  /* Driver Theme Colors */
+  background-color: #0009;
+  border: 4px solid var(--bg-blue);
+  border-radius: 20px;
+  padding: 15px 40px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+/* --- Grid Layout (2x2) --- */
+.spots-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 90%;
+  max-width: 900px;
+  margin-top: 20px;
+}
+
+/* --- Button Overrides --- */
+.spots-btn-override {
+  height: 200px !important;
+  position: relative;
+
+  transition: all 0.2s;
+}
+
+.spots-btn-override.selected {
+  border: 4px solid white !important;
+}
+
+/* --- Content Styling --- */
+.spots-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.spots-label {
+  font-size: 1.5rem;
+}
+
+/* --- Footer Actions --- */
+.spots-back-container {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.spots-back-btn {
+  margin-top: 0;
+  background: rgba(0, 0, 0, 0.6);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}

@@ -1,0 +1,234 @@
+/* --- Header Styling (Restored) --- */
+.checkout-title {
+  /* Restoring original header-box styles locally */
+  color: var(--white);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 4px solid var(--coffee-accent);
+  padding: 15px 40px;
+  border-radius: 20px;
+
+  /* Restoring font styles */
+  font-size: 3rem;
+  text-align: center;
+  font-weight: 800;
+  text-transform: uppercase; /* Fixes the lowercase issue */
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+/* --- Order Summary Section --- */
+.checkout-summary {
+  background: rgba(255, 255, 255, 0.95);
+  width: 90%;
+  max-width: 600px;
+  border-radius: 20px;
+  padding: 30px;
+  margin-top: 10px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-summary h3 {
+  color: black;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 10px;
+  margin-top: 0;
+}
+
+.summary-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px dashed #ccc;
+  font-size: 1.1rem;
+}
+
+.summary-total {
+  text-align: right;
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--coffee-accent);
+}
+
+/* --- Payment Method Selection --- */
+.payment-section-title {
+  color: white;
+  margin-top: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.checkout-payment-options {
+  max-width: 600px;
+  margin-top: 15px;
+  gap: 20px; /* Reduced gap slightly */
+}
+
+/* Fixed: Reduced height from 150px to 110px */
+.payment-option-btn {
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.payment-icon {
+  font-size: 32px; /* Slightly smaller icon to fit */
+}
+
+.btn-inactive {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  border: 2px solid #999;
+  opacity: 0.6;
+}
+
+.btn-inactive:hover {
+  opacity: 1;
+}
+
+/* --- Card Payment Form --- */
+.card-form-container {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 600px;
+  margin-top: 20px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  border: 4px solid var(--coffee-accent);
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 1rem;
+  background: white;
+  transition: border 0.2s;
+}
+
+.form-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(65, 91, 116, 0.2);
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.form-row .form-input {
+  flex: 1;
+}
+
+.full-width {
+  width: 100%;
+}
+
+/* --- Pay Button --- */
+.pay-now-btn {
+  margin-top: 30px;
+  background: linear-gradient(145deg, #2ecc71, #27ae60);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  font-weight: bold;
+  padding: 15px 80px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(46, 204, 113, 0.4);
+  transition: transform 0.2s;
+  width: 90%;
+  max-width: 600px;
+}
+
+.pay-now-btn:hover {
+  transform: scale(1.05);
+}
+
+.pay-now-btn:active {
+  transform: scale(0.98);
+}
+
+/* --- Success Modal Specifics --- */
+.success-modal {
+  border-top: 10px solid #2ecc71;
+  padding-top: 40px;
+  position: relative;
+  overflow: visible !important;
+}
+
+.success-icon-container {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.success-icon {
+  width: 60px;
+  height: 60px;
+  fill: #2ecc71;
+  animation: scaleUp 0.5s ease-out;
+}
+
+.success-message {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 15px 0;
+}
+
+.success-total {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: black;
+  margin-top: 20px;
+  padding: 15px;
+  background: #f0f8ff;
+  border-radius: 10px;
+}
+
+.payment-tag {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 5px 15px;
+  background: #eee;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #666;
+  text-transform: capitalize;
+}
+
+.success-home-btn {
+  margin-top: 30px;
+  width: 100%;
+}

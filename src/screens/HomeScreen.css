@@ -1,0 +1,484 @@
+/* --- Video & Background Frame --- */
+.video-screen-frame {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.video-aspect-box {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  max-height: 100vh;
+  max-width: 177.78vh;
+  margin: auto;
+}
+
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* --- Map Container & Styling --- */
+.map-wrapper {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 20;
+  pointer-events: auto;
+  border-radius: 1vh;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.map-position {
+  top: 12.5%;
+  left: 48.5%;
+  width: 12.1%;
+  height: 11%;
+}
+
+.actual-map-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Layout Overrides for Map */
+.layout-town3 .map-position {
+  left: 48.7%;
+}
+.layout-town2 .map-position {
+  left: 49.15%;
+}
+
+/* --- Map Pins --- */
+.map-pin {
+  position: absolute;
+  width: 10%;
+  height: auto;
+  z-index: 2;
+  cursor: pointer;
+  transform: translate(-50%, -100%);
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease;
+}
+
+.map-pin:hover {
+  transform: translate(-50%, -100%) scale(1.15);
+}
+
+.pin-1 {
+  top: 95%;
+  left: 21%;
+  rotate: -15deg;
+}
+.pin-2 {
+  top: 45%;
+  left: 45%;
+  rotate: -10deg;
+}
+.pin-3 {
+  top: 30%;
+  left: 85%;
+}
+
+/* --- Temperature Display --- */
+.temp-image {
+  position: absolute;
+  bottom: 83.8%;
+  left: 56%;
+  width: 0.7%;
+  z-index: 30;
+}
+
+.temp-value {
+  position: absolute;
+  bottom: 84.3%;
+  left: 56.8%;
+  color: white;
+
+  font-size: 1.5vh;
+
+  font-weight: bold;
+  z-index: 30;
+
+  /* Optional: prevents text wrapping if screen gets very narrow */
+  white-space: nowrap;
+}
+
+/* Layout Overrides for Temp */
+.layout-town2 .temp-image {
+  left: 56.5%;
+}
+.layout-town3 .temp-image {
+  left: 56.1%;
+}
+.layout-town2 .temp-value {
+  left: 57.4%;
+}
+.layout-town3 .temp-value {
+  left: 56.9%;
+}
+
+/* --- Exit Button --- */
+.exit-btn {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 50;
+  cursor: pointer;
+  pointer-events: auto;
+  top: 32.2%;
+  left: 76.2%;
+  width: 2.5%;
+  height: auto;
+  transition: transform 0.2s ease;
+}
+
+.exit-btn:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+}
+
+.layout-town2 .exit-btn {
+  left: 76.7%;
+}
+
+/* --- Passenger & Driver Monitors --- */
+.monitor-img {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border-radius: 1vh;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 10;
+  height: auto;
+  display: block;
+}
+
+.screen-1 {
+  top: 63.1%;
+  left: 14.5%;
+  width: 9.7%;
+  height: 10.5%;
+  rotate: 0.3deg;
+}
+.screen-2 {
+  top: 65.2%;
+  left: 51%;
+  width: 12.5%;
+  height: 10.8%;
+}
+.screen-3 {
+  top: 64.6%;
+  left: 74.2%;
+  width: 8.3%;
+  height: 10%;
+}
+.screen-4 {
+  top: 64.3%;
+  left: 92.2%;
+  width: 8.3%;
+  height: 10%;
+}
+
+.layout-town2 .screen-1 {
+  left: 15.2%;
+}
+.layout-town2 .screen-2 {
+  left: 51.7%;
+}
+.layout-town2 .screen-3 {
+  left: 74.8%;
+}
+.layout-town2 .screen-4 {
+  left: 92.8%;
+}
+
+.layout-town3 .screen-1 {
+  left: 14.6%;
+}
+.layout-town3 .screen-2 {
+  left: 51.2%;
+}
+.layout-town3 .screen-3 {
+  left: 74.35%;
+}
+.layout-town3 .screen-4 {
+  left: 92.33%;
+}
+
+/* --- Interactive Temperature Screens --- */
+.temp-screen {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  width: 2%;
+}
+
+.temp-screen:hover {
+  transform: scale(1.05);
+}
+
+.hot-temp-active {
+  box-shadow: 0 0 50px 20px #ff4200;
+}
+.cold-temp-active {
+  box-shadow: 0 0 50px 20px #1cf7ff;
+}
+
+.temp-pos-0 {
+  top: 77%;
+  left: 12%;
+}
+.temp-pos-1 {
+  top: 77%;
+  left: 15%;
+}
+.temp-pos-2 {
+  top: 78%;
+  left: 72%;
+}
+.temp-pos-3 {
+  top: 78%;
+  left: 75%;
+}
+.temp-pos-4 {
+  top: 77.6%;
+  left: 90%;
+}
+.temp-pos-5 {
+  top: 77.6%;
+  left: 93%;
+}
+
+.layout-town2 .temp-pos-0 {
+  left: 13%;
+}
+.layout-town2 .temp-pos-1 {
+  left: 16%;
+}
+.layout-town2 .temp-pos-2 {
+  left: 72.5%;
+}
+.layout-town2 .temp-pos-3 {
+  left: 75.5%;
+}
+.layout-town2 .temp-pos-4 {
+  left: 90.7%;
+}
+.layout-town2 .temp-pos-5 {
+  left: 93.7%;
+}
+
+/* --- Shopping Bag & Help --- */
+.bag-container {
+  position: absolute;
+  bottom: 2%;
+  left: 1%;
+  width: 9%;
+  max-width: 80px;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 50;
+  transition: transform 0.2s ease;
+}
+
+.bag-container:hover {
+  transform: scale(1.1);
+}
+
+.shopping-bag-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+}
+
+.bag-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: #d85b38;
+  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid white;
+}
+
+.online-help-img {
+  width: 3%;
+  position: absolute;
+  top: 92.5%;
+  left: 96%;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5));
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+/* --- Modal Content Styles (Bag List) --- */
+
+.bag-modal-title {
+  color: var(--bg-blue);
+  margin-bottom: 20px;
+}
+
+.purchased-items-list {
+  max-height: 50vh;
+  overflow-y: auto;
+  text-align: left;
+}
+
+.purchased-item-row {
+  display: flex;
+  gap: 15px;
+  border-bottom: 1px solid #eee;
+  padding: 10px 0;
+  align-items: center;
+}
+
+.purchased-item-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.purchased-item-details {
+  flex: 1;
+}
+
+.purchased-item-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.purchased-item-options {
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.purchased-item-price {
+  font-weight: bold;
+  color: var(--brand-red);
+}
+
+/* Shared Modal Actions */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.btn-cancel {
+  flex: 1;
+  padding: 15px;
+  background: #ddd;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btn-add {
+  flex: 2;
+  padding: 15px;
+  background: var(--coffee-accent);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 1.1rem;
+}
+
+.btn-consume {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-consume:hover {
+  background-color: #45a049;
+}
+
+.btn-consume:active {
+  transform: scale(0.95);
+}
+
+/* Success Modal */
+.success-modal-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.success-modal-content h2 {
+  color: #2ecc71;
+  margin: 0 0 10px 0;
+}
+
+.success-modal-content p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+}
+
+.checkmark-circle {
+  width: 60px;
+  height: 60px;
+  background-color: #2ecc71;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 10px rgba(46, 204, 113, 0.4);
+  animation: scaleUp 0.4s ease-out;
+}
+
+.checkmark-icon {
+  width: 35px;
+  height: 35px;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0);
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}

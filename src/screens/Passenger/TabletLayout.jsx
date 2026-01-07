@@ -1,5 +1,6 @@
 import React from "react";
 import "../../App.css";
+import "./TabletLayout.css";
 
 import OutsideBusTown1 from "../../assets/home/busbackground/OutsideBusTown1.webm";
 import OutsideBusTown2 from "../../assets/home/busbackground/OutsideBusTown2.webm";

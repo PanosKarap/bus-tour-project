@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./HomeScreen.css";
 import passengerMonitorImage from "../assets/passenger/passenger-screen.webp";
 import driverMonitorImage from "../assets/driver/driver-screen.webp";
 import inactiveColdScreenImage from "../assets/home/inactive-temp-cold-screen.svg";
@@ -259,55 +260,27 @@ export default function HomeScreen({
         {/* Modal Καλαθιού */}
         {isBagOpen && (
           <Modal>
-            <h2 style={{ color: "var(--brand-blue)", marginBottom: "20px" }}>
-              Οι αγορές σας
-            </h2>
+            <h2 className="bag-modal-title">Οι αγορές σας</h2>
 
             {purchasedItems.length === 0 ? (
               <p>Δεν έχετε αγοράσει τίποτα ακόμα.</p>
             ) : (
-              <div
-                style={{
-                  maxHeight: "50vh",
-                  overflowY: "auto",
-                  textAlign: "left",
-                }}
-              >
+              <div className="purchased-items-list">
                 {purchasedItems.map((item, index) => (
-                  <div
-                    key={index}
-                    style={{
-                      display: "flex",
-                      gap: "15px",
-                      borderBottom: "1px solid #eee",
-                      padding: "10px 0",
-                      alignItems: "center",
-                    }}
-                  >
+                  <div key={index} className="purchased-item-row">
                     <img
                       src={item.image}
                       alt={item.name}
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        objectFit: "cover",
-                        borderRadius: "8px",
-                      }}
+                      className="purchased-item-img"
                     />
-                    <div style={{ flex: 1 }}>
-                      <div style={{ fontWeight: "bold", color: "#333" }}>
-                        {item.name}
-                      </div>
-                      <div style={{ fontSize: "0.85rem", color: "#666" }}>
+                    <div className="purchased-item-details">
+                      <div className="purchased-item-name">{item.name}</div>
+                      <div className="purchased-item-options">
                         {item.selectedOptions &&
                           Object.values(item.selectedOptions).join(", ")}
                       </div>
                     </div>
-                    <div
-                      style={{ fontWeight: "bold", color: "var(--brand-red)" }}
-                    >
-                      {item.price}
-                    </div>
+                    <div className="purchased-item-price">{item.price}</div>
                     <button
                       className="btn-consume"
                       onClick={() => onConsumeItem(item.cartId)}
@@ -319,7 +292,7 @@ export default function HomeScreen({
               </div>
             )}
 
-            <div className="modal-actions" style={{ marginTop: "20px" }}>
+            <div className="modal-actions">
               <button
                 className="btn-cancel"
                 onClick={() => setIsBagOpen(false)}

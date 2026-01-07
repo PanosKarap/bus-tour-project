@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "./CheckoutScreen.css";
 import bgImage from "../../../assets/passenger/order/coffee-bg.webp";
 import Modal from "../../../components/Modal";
 
@@ -45,7 +46,7 @@ export default function CheckoutScreen({ cart, total, onPay, onBack }) {
       className="container menu-mode"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      <h2 className="header header-box">ταμειο</h2>
+      <h2 className="checkout-title">ταμειο</h2>
 
       <div className="checkout-summary">
         <h3>Σύνοψη Παραγγελίας</h3>
@@ -60,39 +61,26 @@ export default function CheckoutScreen({ cart, total, onPay, onBack }) {
         <div className="summary-total">Σύνολο: €{total}</div>
       </div>
 
-      <h3
-        style={{
-          color: "white",
-          marginTop: "30px",
-          textShadow: "0 2px 4px rgba(0,0,0,0.5)",
-        }}
-      >
-        Τρόπος Πληρωμής
-      </h3>
+      <h3 className="payment-section-title">Τρόπος Πληρωμής</h3>
 
-      <div
-        className="button-container"
-        style={{ maxWidth: "600px", marginTop: "10px" }}
-      >
+      <div className="button-container checkout-payment-options">
         <button
-          className={`btn ${
+          className={`btn payment-option-btn ${
             paymentMethod === "card" ? "brown" : "btn-inactive"
           }`}
-          style={{ height: "150px" }}
           onClick={() => setPaymentMethod("card")}
         >
-          <span style={{ fontSize: "40px" }}>💳</span>
+          <span className="payment-icon">💳</span>
           <span>Κάρτα</span>
         </button>
 
         <button
-          className={`btn ${
+          className={`btn payment-option-btn ${
             paymentMethod === "cash" ? "brown" : "btn-inactive"
           }`}
-          style={{ height: "150px" }}
           onClick={() => setPaymentMethod("cash")}
         >
-          <span style={{ fontSize: "40px" }}>💵</span>
+          <span className="payment-icon">💵</span>
           <span>Μετρητά</span>
         </button>
       </div>
@@ -158,7 +146,7 @@ export default function CheckoutScreen({ cart, total, onPay, onBack }) {
             </svg>
           </div>
           <h2>Η παραγγελία ελήφθη!</h2>
-          <p style={{ fontSize: "1.2rem", color: "#555" }}>
+          <p className="success-message">
             Η παραγγελία σας στάλθηκε στην κουζίνα. Θα την παραλάβετε στην
             επόμενη στάση.
           </p>
@@ -168,11 +156,7 @@ export default function CheckoutScreen({ cart, total, onPay, onBack }) {
               ? "Πληρωμή με Κάρτα"
               : "Πληρωμή με Μετρητά"}
           </div>
-          <button
-            className="btn-add"
-            style={{ marginTop: "30px", width: "100%" }}
-            onClick={finalizeOrder}
-          >
+          <button className="btn-add success-home-btn" onClick={finalizeOrder}>
             Επιστροφή στην Αρχική
           </button>
         </Modal>

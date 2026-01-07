@@ -1,6 +1,6 @@
 import React from "react";
+import "./Fullscreen.css";
 
-// --- IMAGE IMPORTS ---
 import FullscreenTown1 from "../../../assets/passenger/fullscreentown/FullscreenTown1.webp";
 import FullscreenTown2 from "../../../assets/passenger/fullscreentown/FullscreenTown2.webp";
 import FullscreenTown3 from "../../../assets/passenger/fullscreentown/FullscreenTown3.webp";
@@ -16,46 +16,14 @@ export default function Fullscreen({ currentScenario, onBack }) {
 
   return (
     <div
+      className="fullscreen-container"
       style={{
-        // 2. FORCE FULL COVERAGE
-        // We use absolute positioning to cover the brown 'TabletLayout' background completely
-        position: "absolute",
-        top: 0,
-        left: 0,
-        width: "100%",
-        height: "100%",
-        zIndex: 100, // High z-index to sit on top of everything else
-
-        // 3. IMAGE STYLES
         backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        backgroundRepeat: "no-repeat",
-
-        // 4. FALLBACK COLOR (White instead of brown/transparent)
-        backgroundColor: "white",
       }}
     >
-      {/* Optional: Slight dark overlay to make the back button readable */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "rgba(0,0,0,0.1)",
-        }}
-      />
+      <div className="fullscreen-overlay" />
 
-      {/* BACK BUTTON */}
-      <button
-        className="btn-back"
-        onClick={onBack}
-        style={{
-          position: "absolute",
-          bottom: "20px",
-          left: "50%",
-          transform: "translateX(-50%)",
-        }}
-      >
+      <button className="btn-back fullscreen-back-btn" onClick={onBack}>
         &larr; Επιστροφή
       </button>
     </div>

@@ -1,0 +1,57 @@
+/* Container override for this specific screen */
+.sight-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+  color: white;
+  text-align: center;
+}
+
+.sight-detail-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Glassmorphism content box */
+.sight-content-box {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  max-width: 900px;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+.sight-image {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.sight-info {
+  flex: 1;
+  text-align: left;
+}
+
+.sight-info-title {
+  border-bottom: 1px solid white;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.sight-info-text {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.sight-detail-back-btn {
+  margin-top: 40px;
+}

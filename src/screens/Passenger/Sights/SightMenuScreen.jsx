@@ -1,6 +1,6 @@
 import React from "react";
+import "./SightMenuScreen.css";
 
-// --- IMAGES ---
 import Town1Sight1 from "../../../assets/passenger/sights/town1/Town1Sight1.webp";
 import Town1Sight2 from "../../../assets/passenger/sights/town1/Town1Sight2.webp";
 import Town1Sight3 from "../../../assets/passenger/sights/town1/Town1Sight3.webp";
@@ -13,12 +13,11 @@ import Town3Sight1 from "../../../assets/passenger/sights/town3/Town3Sight1.webp
 import Town3Sight2 from "../../../assets/passenger/sights/town3/Town3Sight2.webp";
 import Town3Sight3 from "../../../assets/passenger/sights/town3/Town3Sight3.webp";
 
-export default function SightsMenuScreen({
+export default function SightMenuScreen({
   onSelectSight,
   onBack,
   currentScenario,
 }) {
-  // 1. DETERMINE WHICH SIGHTS TO SHOW AND ADD DESCRIPTIONS
   let sightsList = [
     {
       id: 1,
@@ -96,83 +95,25 @@ export default function SightsMenuScreen({
   }
 
   return (
-    <div
-      className="container home-bg"
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <h1
-        style={{
-          color: "white",
-          marginBottom: "20px",
-          textShadow: "0 2px 4px rgba(0,0,0,0.5)",
-        }}
-      >
-        Αξιοθέατα
-      </h1>
+    <div className="container home-bg sights-screen">
+      <h1 className="sights-title">Αξιοθέατα</h1>
 
-      <div
-        className="button-container"
-        style={{
-          display: "flex",
-          gap: "25px",
-          flexWrap: "wrap",
-          justifyContent: "center",
-        }}
-      >
+      <div className="sights-grid">
         {sightsList.map((sight) => (
           <button
             key={sight.id}
-            className="btn"
-            onClick={() => onSelectSight(sight)} // Passing the full object with description
+            className="sight-card"
+            onClick={() => onSelectSight(sight)}
             style={{
               backgroundImage: `url(${sight.image})`,
-              backgroundSize: "cover",
-              backgroundColor: "var(--brown)",
-              backgroundPosition: "center",
-              backgroundRepeat: "no-repeat",
-              width: "350px",
-              height: "350px",
-              position: "relative",
-              padding: 0,
-              display: "block",
-              borderRadius: "15px",
-              overflow: "hidden",
-              boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
-              cursor: "pointer",
-              border: "none",
             }}
           >
-            <div
-              style={{
-                position: "absolute",
-                bottom: 0,
-                left: 0,
-                width: "100%",
-                color: "white",
-                padding: "10px",
-                textAlign: "center",
-                fontWeight: "bold",
-                fontSize: "1.3rem",
-                backdropFilter: "blur(3px)",
-                background: "rgba(0,0,0,0.4)",
-              }}
-            >
-              {sight.name}
-            </div>
+            <div className="sight-card-label">{sight.name}</div>
           </button>
         ))}
       </div>
 
-      <button
-        className="btn-back"
-        onClick={onBack}
-        style={{ marginTop: "30px" }}
-      >
+      <button className="btn-back sights-back-btn" onClick={onBack}>
         &larr; Επιστροφή
       </button>
     </div>

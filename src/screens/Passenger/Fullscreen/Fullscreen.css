@@ -1,0 +1,34 @@
+.fullscreen-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+
+  /* Background properties (image URL is handled in JSX) */
+  background-color: white;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.fullscreen-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.1);
+}
+
+/* Specific positioning for the Back button on this screen */
+.fullscreen-back-btn {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+/* FIX: Force the translateX to stay, preventing the jump to the right */
+.fullscreen-back-btn:hover {
+  transform: translateX(-50%) scale(1.05) !important;
+}

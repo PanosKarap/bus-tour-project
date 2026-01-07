@@ -1,4 +1,5 @@
 import React from "react";
+import "./BroomScreen.css";
 import bgImage from "../../../assets/driver/broom/broom-bg.webp";
 import speedIcon from "../../../assets/driver/broom/speed.svg";
 import timerIcon from "../../../assets/driver/broom/time.svg";
@@ -12,89 +13,34 @@ export default function BroomScreen({
   onResultScreen,
   onBack,
 }) {
-  // Helper style objects to keep the JSX clean and consistent
-  const buttonStyle = {
-    height: "300px", // Reduced from 350px
-    fontSize: "1.3rem", // Slightly smaller font to fit
-    padding: "10px",
-  };
-
-  const iconStyle = {
-    width: "80px", // Reduced from 120px
-    height: "80px",
-    marginBottom: "5px",
-  };
-
   return (
-    <div className="container" style={{ backgroundImage: `url(${bgImage})` }}>
-      <div
-        className="button-container"
-        style={{
-          display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: "20px", // Tighter gap
-          width: "90%",
-          maxWidth: "900px",
-        }}
-      >
-        <button
-          className="btn blue"
-          onClick={onChangeSpeed}
-          style={buttonStyle}
-        >
-          <img
-            src={speedIcon}
-            className="btn-icon"
-            alt="Order"
-            style={iconStyle}
-          />
+    <div
+      className="container driver-bg"
+      style={{ backgroundImage: `url(${bgImage})` }}
+    >
+      <div className="broom-grid">
+        <button className="btn blue broom-btn" onClick={onChangeSpeed}>
+          <img src={speedIcon} className="btn-icon broom-icon" alt="Speed" />
           <span>Ρύθμιση ταχύτητας</span>
         </button>
 
-        <button className="btn blue" onClick={onChangeTime} style={buttonStyle}>
-          <img
-            src={timerIcon}
-            className="btn-icon"
-            alt="Order"
-            style={iconStyle}
-          />
+        <button className="btn blue broom-btn" onClick={onChangeTime}>
+          <img src={timerIcon} className="btn-icon broom-icon" alt="Time" />
           <span>Ρύθμιση χρόνου</span>
         </button>
 
-        <button
-          className="btn blue"
-          onClick={onChangeSpots}
-          style={buttonStyle}
-        >
-          <img
-            src={spotsIcon}
-            className="btn-icon"
-            alt="Order"
-            style={iconStyle}
-          />
+        <button className="btn blue broom-btn" onClick={onChangeSpots}>
+          <img src={spotsIcon} className="btn-icon broom-icon" alt="Spots" />
           <span>Επιλογή περιοχών</span>
         </button>
 
-        <button
-          className="btn blue"
-          onClick={onResultScreen}
-          style={buttonStyle}
-        >
-          <img
-            src={startIcon}
-            className="btn-icon"
-            alt="Order"
-            style={iconStyle}
-          />
+        <button className="btn blue broom-btn" onClick={onResultScreen}>
+          <img src={startIcon} className="btn-icon broom-icon" alt="Start" />
           <span>Ενεργοποίηση</span>
         </button>
       </div>
 
-      <button
-        className="btn-back"
-        onClick={onBack}
-        style={{ marginTop: "30px" }} // Reduced top margin for the back button
-      >
+      <button className="btn-back broom-back-btn" onClick={onBack}>
         &larr; Επιστροφή
       </button>
     </div>

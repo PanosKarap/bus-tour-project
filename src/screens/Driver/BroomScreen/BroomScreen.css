@@ -1,0 +1,33 @@
+/* --- Grid Layout for Broom Controls --- */
+.broom-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 90%;
+  max-width: 900px;
+  /* Added margin top to center it better visually if needed */
+  margin-top: 20px;
+}
+
+/* --- Specific Button Overrides --- */
+/* Overrides standard .btn height/padding for this specific grid */
+.broom-btn {
+  /* FIX: Reduced from 300px to 200px to match other screens */
+  height: 250px !important;
+  font-size: 1.2rem !important;
+  padding: 10px;
+}
+
+/* --- Icon Overrides --- */
+/* Overrides standard .btn-icon size */
+.broom-icon {
+  width: 70px !important;
+  height: 70px !important;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+/* --- Back Button Spacing --- */
+.broom-back-btn {
+  margin-top: 40px;
+}

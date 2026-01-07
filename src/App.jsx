@@ -41,12 +41,12 @@ export default function App() {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false); // Ελέγχει αν το modal επιβεβαίωσης για το άνοιγμα/κλείσιμο οροφής είναι ανοιχτό
   const [confirmationMessage, setConfirmationMessage] = useState(""); // Κρατάει το message του modal της επιβεβαίωσης για το άνοιγμα/κλείσιμο
 
-  const [powerUsage, setPowerUsage] = useState(80);
+  const [powerUsage, setPowerUsage] = useState(80); // Κρατάει τον αριθμό της κατανάλωσης ενέργειας του λεωφορείου
 
   // --Σκούπα--
-  const [broomSpeed, setBroomSpeed] = useState("Medium");
-  const [broomSpots, setBroomSpots] = useState("mid");
-  const [broomTime, setBroomTime] = useState(5);
+  const [broomSpeed, setBroomSpeed] = useState("Medium"); // Κρατάει την ταχύτητα της σκούπας
+  const [broomSpots, setBroomSpots] = useState("mid"); // Κρατάει τα σημεία καθαρισμού της σκούπας
+  const [broomTime, setBroomTime] = useState(5); // Κρατάει τον χρόνο λειτουργίας της σκούπας
 
   // --Θερμοκρασίες και κλιματισμοί--
   const [baseTemperature, setBaseTemperature] = useState(32); // Κρατάει την βασική θερμοκρασία εσωτερικά του λεωφορείου χωρίς ανοιχτούς κλιματισμούς
@@ -330,7 +330,7 @@ export default function App() {
         renderCurrentView()
       )}
 
-      {/* ΠΡΟΣ ΥΛΟΠΟΙΗΣΗ */}
+      {/* -- ΔΙΕΠΑΦΗ ΟΔΗΓΟΥ -- */}
       {view === "driverScreen" && (
         <DriverScreen
           onOpenCloseRoof={handleOpenCloseRoof}
@@ -341,6 +341,7 @@ export default function App() {
         />
       )}
 
+      {/* ΛΕΙΤΟΥΡΓΙΑ: ΔΙΕΠΑΦΗ ΜΕ ΤΙΣ ΔΙΑΘΕΣΙΜΕΣ ΕΠΙΛΟΓΕΣ ΓΙΑ ΤΟΝ ΚΑΘΑΡΙΣΜΟ ΤΟΥ ΛΕΩΦΟΡΕΙΟΥ ΜΕ ΕΞΥΠΝΗ ΣΚΟΥΠΑ */}
       {view === "broomScreen" && (
         <BroomScreen
           onBack={() => setView("driverScreen")}
@@ -351,6 +352,7 @@ export default function App() {
         />
       )}
 
+      {/* ΑΠΟΤΕΛΕΣΜΑΤΑ ΤΟΥ ΚΑΘΑΡΙΣΜΟΥ ΑΠΟ ΤΗΝ ΕΞΥΠΝΗ ΣΚΟΥΠΑ */}
       {view === "resultScreen" && (
         <ResultScreen
           onBack={() => setView("broomScreen")}
@@ -359,6 +361,8 @@ export default function App() {
           broomTime={broomTime}
         />
       )}
+
+      {/* ΡΥΘΜΙΣΗ ΤΑΧΥΤΗΤΑΣ ΤΗΣ ΕΞΥΠΝΗΣ ΣΚΟΥΠΑΣ */}
       {view === "speedScreen" && (
         <SpeedScreen
           onBack={() => setView("broomScreen")}
@@ -366,6 +370,8 @@ export default function App() {
           setBroomSpeed={setBroomSpeed}
         />
       )}
+
+      {/* ΡΥΘΜΙΣΗ ΣΗΜΕΙΩΝ ΚΑΘΑΡΙΣΜΟΥ ΤΗΣ ΕΞΥΠΝΗΣ ΣΚΟΥΠΑΣ */}
       {view === "spotsScreen" && (
         <SpotsScreen
           onBack={() => setView("broomScreen")}
@@ -373,6 +379,8 @@ export default function App() {
           setBroomSpots={setBroomSpots}
         />
       )}
+
+      {/* ΡΥΘΜΙΣΗ ΧΡΟΝΟΥ ΛΕΙΤΟΥΡΓΙΑΣ ΤΗΣ ΕΞΥΠΝΗΣ ΣΚΟΥΠΑΣ */}
       {view === "timeScreen" && (
         <TimeScreen
           onBack={() => setView("broomScreen")}
@@ -381,6 +389,7 @@ export default function App() {
         />
       )}
 
+      {/* ΛΕΙΤΟΥΡΓΙΑ: ΔΙΕΠΑΦΗ ΠΟΥ ΠΡΟΒΑΛΛΕΙ ΤΗΝ ΚΑΤΑΝΑΛΩΣΗ ΕΝΕΡΓΕΙΑΣ ΤΟΥ ΛΕΩΦΟΡΕΙΟΥ */}
       {view === "powerUsageScreen" && (
         <PowerUsageScreen
           finalPowerUsage={finalPowerUsage}
@@ -388,6 +397,7 @@ export default function App() {
         />
       )}
 
+      {/* ΛΕΙΤΟΥΡΓΙΑ: ΕΜΦΑΝΙΣΗ ΕΙΚΟΝΑΣ ΠΟΥ ΠΕΡΙΕΧΕΙ ΒΟΗΘΕΙΑ ΠΡΟΣ ΤΟ ΧΡΗΣΤΗ ΜΕ ΟΔΗΓΙΕΣ ΓΙΑ ΤΗΝ ΠΛΟΗΓΗΣΗ ΣΤΗΝ ΕΦΑΡΜΟΓΗ */}
       {view === "onlineHelp" && (
         <OnlineHelpScreen onBack={() => setView("home")} />
       )}

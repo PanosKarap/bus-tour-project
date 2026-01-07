@@ -1,0 +1,103 @@
+/* --- Layout Container --- */
+.speed-screen-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* --- Header Styling (Driver Theme) --- */
+.speed-header-box {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+  /* Specific styling for the Driver Header */
+  background-color: #0009; /* Dark background */
+  border: 4px solid var(--bg-blue); /* Blue border */
+  border-radius: 20px;
+  padding: 15px 40px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+}
+
+/* --- Grid Layout (2x2) --- */
+.speed-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  width: 90%;
+  max-width: 900px;
+  margin-top: 20px;
+}
+
+/* --- Button Overrides --- */
+/* We attach this to the global .btn .blue classes */
+.speed-btn-override {
+  height: 200px !important; /* Force the original large height */
+  position: relative;
+
+  /* Reset border to handle selection state */
+  transition: all 0.2s;
+}
+
+/* Selection State Border */
+.speed-btn-override.selected {
+  border: 4px solid white;
+}
+
+/* --- Radio Indicator --- */
+.radio-container {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 3px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+
+.radio-container.active {
+  background: white;
+}
+
+.radio-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--bg-blue);
+}
+
+/* --- Content Styling --- */
+.speed-icon {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
+.speed-label {
+  font-size: 1.5rem;
+}
+
+/* --- Back Button --- */
+.speed-back-container {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  width: 90%;
+  max-width: 600px;
+}
+
+.speed-back-btn {
+  margin-top: 0;
+  background: rgba(0, 0, 0, 0.6);
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}

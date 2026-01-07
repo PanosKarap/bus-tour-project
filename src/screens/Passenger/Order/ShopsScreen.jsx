@@ -1,13 +1,21 @@
 import React from "react";
+import "./ShopsScreen.css";
 import { SHOPS_DATA } from "../../../data/mockData";
 import bgImage from "../../../assets/passenger/order/coffee-bg.webp";
 
 export default function ShopsScreen({ onSelectShop, onBack }) {
   return (
-    <div className="container" style={{ backgroundImage: `url(${bgImage})` }}>
+    <div
+      className="container"
+      style={{
+        backgroundImage: `url(${bgImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="button-container">
-        {/* Μετατρέπει το SHOPS_DATA σε πίνακα και δημιουργεί ένα κουμπί για κάθε
-        κατάστημα */}
+        {/* Μετατρέπει το SHOPS_DATA σε πίνακα και δημιουργεί ένα κουμπί για κάθε κατάστημα */}
         {Object.values(SHOPS_DATA).map((shop) => (
           <button
             key={shop.id}

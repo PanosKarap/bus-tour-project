@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
+import "./ResultScreen.css";
 import bgImage from "../../../assets/driver/broom/broom-bg.webp";
 import speedIcon from "../../../assets/driver/broom/speed.svg";
 import timerIcon from "../../../assets/driver/broom/time.svg";
 import spotsIcon from "../../../assets/driver/broom/spots.svg";
 import checkIcon from "../../../assets/driver/broom/power-on.svg";
 
-// --- 1. MOCK DATA: Items the broom might find ---
 const POSSIBLE_ITEMS = [
   {
     id: 1,
@@ -50,43 +50,45 @@ export default function ResultScreen({
   broomTime,
   onBack,
 }) {
-  // 1. STATE FOR LOADING ANIMATION & FOUND ITEM
-  const [stage, setStage] = useState("loading"); // 'loading' -> 'found' -> 'summary'
+  const [stage, setStage] = useState("loading");
   const [progress, setProgress] = useState(0);
   const [foundItem, setFoundItem] = useState(null);
 
-  // 2. SIMULATE CLEANING PROCESS
   useEffect(() => {
+    // Υπολογισμός διάρκειας καθαρισμού με βάση την επιλογή ή default 5 δευτερόλεπτα
     const duration = parseInt(broomTime) || 5;
-    const intervalTime = 50;
-    const totalSteps = (duration * 1000) / intervalTime;
+    const intervalTime = 50; // Κάθε 50ms ενημερώνεται η μπάρα
+    const totalSteps = (duration * 1000) / intervalTime; // Συνολικά βήματα
     let currentStep = 0;
 
+    // Έναρξη του χρονοδιακόπτη (timer)
     const timer = setInterval(() => {
       currentStep++;
+      // Υπολογισμός νέου ποσοστού προόδου
       const newProgress = Math.min((currentStep / totalSteps) * 100, 100);
       setProgress(newProgress);
 
+      // Έλεγχος αν ολοκληρώθηκε ο καθαρισμός
       if (currentStep >= totalSteps) {
-        clearInterval(timer);
+        clearInterval(timer); // Σταματάμε τον χρονοδιακόπτη
 
-        // --- LOGIC: Pick a random item ---
+        // Επιλογή τυχαίου αντικειμένου από τη λίστα POSSIBLE_ITEMS
         const randomItem =
           POSSIBLE_ITEMS[Math.floor(Math.random() * POSSIBLE_ITEMS.length)];
         setFoundItem(randomItem);
-        setStage("found"); // Go to Found stage instead of finished directly
+        setStage("found"); // Αλλαγή σταδίου σε "found" (βρέθηκε αντικείμενο)
       }
     }, intervalTime);
 
+    // Καθαρισμός του timer όταν αποσυνδεθεί το component ή αλλάξει ο χρόνος
     return () => clearInterval(timer);
   }, [broomTime]);
 
-  // --- HANDLER TO MOVE TO SUMMARY ---
+  // Συνάρτηση χειρισμού για μετάβαση στο επόμενο στάδιο
   const handleContinue = () => {
     setStage("summary");
   };
 
-  // --- HELPER MAPS ---
   const speedLabels = {
     Low: "Χαμηλή",
     Medium: "Μεσαία",
@@ -112,27 +114,17 @@ export default function ResultScreen({
 
   return (
     <div
-      className="container driver-bg"
+      className="container driver-bg result-container"
       style={{ backgroundImage: `url(${bgImage})` }}
     >
-      {/* --- HEADER --- */}
-      <div className="header-container" style={{ marginBottom: "30px" }}>
-        <div
-          className="header-box"
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "20px",
-            borderColor: "var(--bg-blue)",
-            padding: "15px 40px",
-          }}
-        >
+      <div className="header-container">
+        <div className="result-header-box">
           <img
             src={checkIcon}
             alt="Active"
             style={{ width: "50px", height: "50px" }}
           />
-          <h2 style={{ margin: 0, fontSize: "2rem" }}>
+          <h2>
             {stage === "loading" && "Διαδικασία Καθαρισμού..."}
             {stage === "found" && "Βρέθηκε Αντικείμενο!"}
             {stage === "summary" && "Σύνοψη Καθαρισμού"}
@@ -140,137 +132,52 @@ export default function ResultScreen({
         </div>
       </div>
 
-      {/* --- CONDITIONAL RENDERING --- */}
-
-      {/* 1. LOADING STAGE */}
       {stage === "loading" && (
-        <div
-          style={{
-            background: "rgba(0, 0, 0, 0.7)",
-            backdropFilter: "blur(12px)",
-            border: "3px solid var(--bg-blue)",
-            borderRadius: "20px",
-            padding: "50px",
-            width: "90%",
-            maxWidth: "600px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            justifyContent: "center",
-            gap: "20px",
-          }}
-        >
-          <h3 style={{ color: "white", fontSize: "1.5rem" }}>
-            Καθαρισμός σε εξέλιξη...
-          </h3>
-          <div
-            style={{
-              width: "100%",
-              height: "20px",
-              background: "#333",
-              borderRadius: "10px",
-              overflow: "hidden",
-            }}
-          >
+        <div className="result-card">
+          <h3 className="loading-title">Καθαρισμός σε εξέλιξη...</h3>
+          <div className="progress-track">
             <div
+              className="progress-fill"
               style={{
-                height: "100%",
                 width: `${progress}%`,
-                background: "#2ecc71",
-                transition: "width 0.1s linear",
               }}
             />
           </div>
-          <span
-            style={{ color: "#2ecc71", fontWeight: "bold", fontSize: "1.2rem" }}
-          >
-            {Math.round(progress)}%
-          </span>
+          <span className="progress-text">{Math.round(progress)}%</span>
         </div>
       )}
 
-      {/* 2. FOUND ITEM STAGE (NEW PART) */}
       {stage === "found" && foundItem && (
-        <div
-          style={{
-            background: "rgba(0, 0, 0, 0.7)",
-            backdropFilter: "blur(12px)",
-            border: "3px solid var(--bg-blue)",
-            borderRadius: "20px",
-            padding: "40px",
-            width: "90%",
-            maxWidth: "600px",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: "20px",
-            animation: "popIn 0.5s ease",
-          }}
-        >
-          <h3 style={{ color: "#f1c40f", fontSize: "1.8rem", margin: 0 }}>
-            🔍 Βρέθηκε κάτι!
-          </h3>
+        <div className="result-card">
+          <h3 className="found-title">🔍 Βρέθηκε κάτι!</h3>
 
           <img
             src={foundItem.img}
             alt={foundItem.name}
-            style={{
-              width: "120px",
-              height: "120px",
-              objectFit: "contain",
-              filter: "drop-shadow(0 0 10px rgba(255,255,255,0.5))",
-            }}
+            className="found-item-img"
           />
 
           <div style={{ textAlign: "center" }}>
+            <div className="found-item-name">{foundItem.name}</div>
             <div
-              style={{ color: "white", fontSize: "1.6rem", fontWeight: "bold" }}
-            >
-              {foundItem.name}
-            </div>
-            <div
-              style={{
-                color: foundItem.type === "trash" ? "#e74c3c" : "#2ecc71",
-                fontSize: "1.2rem",
-                marginTop: "5px",
-                fontWeight: "bold",
-              }}
+              className={`found-item-type ${
+                foundItem.type === "trash" ? "type-trash" : "type-useful"
+              }`}
             >
               {foundItem.label}
             </div>
           </div>
 
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              width: "100%",
-              marginTop: "10px",
-            }}
-          >
+          <div className="action-buttons-container">
             <button
-              className="btn-back"
+              className="btn-back btn-action btn-trash"
               onClick={handleContinue}
-              style={{
-                flex: 1,
-                marginTop: 0,
-                background: "#c0392b",
-                border: "none",
-                fontSize: "1.1rem",
-              }}
             >
               Πέταμα 🗑️
             </button>
             <button
-              className="btn-back"
+              className="btn-back btn-action btn-keep"
               onClick={handleContinue}
-              style={{
-                flex: 1,
-                marginTop: 0,
-                background: "#27ae60",
-                border: "none",
-                fontSize: "1.1rem",
-              }}
             >
               Κράτημα 🎒
             </button>
@@ -278,102 +185,50 @@ export default function ResultScreen({
         </div>
       )}
 
-      {/* 3. SUMMARY STAGE (YOUR ORIGINAL SUCCESS CARD) */}
       {stage === "summary" && (
-        <div
-          style={{
-            background: "rgba(0, 0, 0, 0.7)",
-            backdropFilter: "blur(12px)",
-            border: "3px solid var(--bg-blue)",
-            borderRadius: "20px",
-            padding: "40px",
-            width: "90%",
-            maxWidth: "700px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "30px",
-            boxShadow: "0 10px 30px rgba(0,0,0,0.5)",
-            animation: "popIn 0.5s ease",
-          }}
-        >
+        <div className="result-card summary-card">
           <div style={{ textAlign: "center", marginBottom: "10px" }}>
-            <h3 style={{ color: "#2ecc71", fontSize: "1.8rem", margin: 0 }}>
+            <h3 className="summary-title">
               &#10003; Η σκούπα ολοκλήρωσε τον καθαρισμό!
             </h3>
-            <p style={{ color: "#ccc", fontSize: "1.2rem", marginTop: "10px" }}>
-              Ρυθμίσεις σκούπας:
-            </p>
+            <p className="summary-subtitle">Ρυθμίσεις σκούπας:</p>
           </div>
 
-          <hr style={{ width: "100%", borderColor: "rgba(255,255,255,0.2)" }} />
+          <hr className="summary-divider" />
 
-          <div
-            style={{ display: "flex", flexDirection: "column", gap: "20px" }}
-          >
-            <div style={rowStyle}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "15px" }}
-              >
-                <img src={speedIcon} alt="Speed" style={iconStyle} />
-                <span style={labelStyle}>Ταχύτητα:</span>
+          <div className="summary-grid">
+            <div className="summary-row">
+              <div className="summary-row-left">
+                <img src={speedIcon} alt="Speed" className="summary-icon" />
+                <span className="summary-label">Ταχύτητα:</span>
               </div>
-              <span style={valueStyle}>{displaySpeed}</span>
+              <span className="summary-value">{displaySpeed}</span>
             </div>
 
-            <div style={rowStyle}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "15px" }}
-              >
-                <img src={timerIcon} alt="Time" style={iconStyle} />
-                <span style={labelStyle}>Διάρκεια:</span>
+            <div className="summary-row">
+              <div className="summary-row-left">
+                <img src={timerIcon} alt="Time" className="summary-icon" />
+                <span className="summary-label">Διάρκεια:</span>
               </div>
-              <span style={valueStyle}>{displayTime}</span>
+              <span className="summary-value">{displayTime}</span>
             </div>
 
-            <div style={rowStyle}>
-              <div
-                style={{ display: "flex", alignItems: "center", gap: "15px" }}
-              >
-                <img src={spotsIcon} alt="Spots" style={iconStyle} />
-                <span style={labelStyle}>Περιοχή:</span>
+            <div className="summary-row">
+              <div className="summary-row-left">
+                <img src={spotsIcon} alt="Spots" className="summary-icon" />
+                <span className="summary-label">Περιοχή:</span>
               </div>
-              <span style={valueStyle}>{displaySpots}</span>
+              <span className="summary-value">{displaySpots}</span>
             </div>
           </div>
         </div>
       )}
 
-      {/* --- FOOTER BUTTON (Only show in Summary) --- */}
       {stage !== "found" && (
-        <button
-          className="btn-back"
-          onClick={onBack}
-          style={{ marginTop: "40px" }}
-        >
+        <button className="btn-back result-back-btn" onClick={onBack}>
           Επιστροφή στο Μενού
         </button>
       )}
     </div>
   );
 }
-
-// --- STYLES ---
-const rowStyle = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  background: "rgba(255,255,255,0.1)",
-  padding: "15px 20px",
-  borderRadius: "15px",
-  border: "1px solid rgba(255,255,255,0.1)",
-  gap: "20px", // Keeps spacing safe
-};
-const iconStyle = { width: "40px", height: "40px" };
-const labelStyle = { color: "#ccc", fontSize: "1.3rem", fontWeight: "bold" };
-const valueStyle = {
-  color: "white",
-  fontSize: "1.4rem",
-  fontWeight: "800",
-  textShadow: "0 2px 4px rgba(0,0,0,0.5)",
-  textAlign: "right",
-};

@@ -1,4 +1,5 @@
 import React from "react";
+import "./PassengerScreen.css";
 import storeIcon from "../../assets/passenger/store.svg";
 import fullscreenIcon from "../../assets/passenger/fullscreen.svg";
 import sightsIcon from "../../assets/passenger/sights.svg";
@@ -13,7 +14,7 @@ export default function PassengerScreen({
     <div className="container passenger-bg">
       <div className="button-container">
         <button className="btn brown" onClick={onFullscreen}>
-          <img src={fullscreenIcon} className="btn-icon" alt="Order" />
+          <img src={fullscreenIcon} className="btn-icon" alt="Fullscreen" />
           <span>Πλήρης Οθόνη</span>
         </button>
         <button className="btn brown" onClick={onOrder}>
@@ -21,7 +22,7 @@ export default function PassengerScreen({
           <span>Παραγγελία</span>
         </button>
         <button className="btn brown" onClick={onSights}>
-          <img src={sightsIcon} className="btn-icon" alt="Order" />
+          <img src={sightsIcon} className="btn-icon" alt="Sights" />
           <span>Αξιοθέατα</span>
         </button>
       </div>
