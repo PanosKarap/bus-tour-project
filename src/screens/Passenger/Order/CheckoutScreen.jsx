@@ -40,21 +40,24 @@ export default function CheckoutScreen({ cart, total, onPay, onBack }) {
   };
 
   const handlePayment = () => {
-    // Έλεγχος αν όλα τα πεδία της κάρτας είναι συμπληρωμένα αν επιλεγεί πληρωμή με κάρτα
-    if (paymentMethod === "card") {
-      // Μικρός επιπλέον έλεγχος ότι ο αριθμός κάρτας έχει το σωστό μήκος (19 chars με τα κενά)
-      if (
-        !cardDetails.number ||
-        cardDetails.number.length < 19 ||
-        !cardDetails.name ||
-        !cardDetails.expiry ||
-        !cardDetails.cvv
-      ) {
-        alert("Παρακαλώ συμπληρώστε σωστά τα στοιχεία της κάρτας.");
-        return;
+    try {
+      // Έλεγχος αν όλα τα πεδία της κάρτας είναι συμπληρωμένα αν επιλεγεί πληρωμή με κάρτα
+      if (paymentMethod === "card") {
+        // Μικρός επιπλέον έλεγχος ότι ο αριθμός κάρτας έχει το σωστό μήκος (19 chars με τα κενά)
+        if (
+          !cardDetails.number ||
+          cardDetails.number.length < 19 ||
+          !cardDetails.name ||
+          !cardDetails.expiry ||
+          !cardDetails.cvv
+        ) {
+          throw new Error("Παρακαλώ συμπληρώστε σωστά τα στοιχεία της κάρτας.");
+        }
       }
+      setShowSuccess(true);
+    } catch (error) {
+      alert(error.message);
     }
-    setShowSuccess(true);
   };
 
   const finalizeOrder = () => {
