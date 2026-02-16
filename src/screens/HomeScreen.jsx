@@ -140,7 +140,7 @@ export default function HomeScreen({
             alt="Exit Bus"
             className="exit-btn"
             onClick={() => {
-              onExitBus(currentScenario);
+              onExitBus();
             }}
           />
 

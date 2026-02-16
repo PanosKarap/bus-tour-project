@@ -17,19 +17,40 @@ export default function CheckoutScreen({ cart, total, onPay, onBack }) {
 
   // Ενημερώνει τα στοιχεία της κάρτας κατά την πληκτρολόγηση
   const handleInputChange = (e) => {
-    setCardDetails({ ...cardDetails, [e.target.name]: e.target.value });
+    let { name, value } = e.target;
+
+    if (name === "number") {
+      // Κρατάει μόνο αριθμούς, μέγιστο 16 ψηφία, και βάζει κενά ανά 4
+      value = value
+        .replace(/\D/g, "")
+        .slice(0, 16)
+        .replace(/(\d{4})(?=\d)/g, "$1 ");
+    } else if (name === "name") {
+      // Αν περιέχει αριθμούς ή σύμβολα (εκτός από κενό), δεν το δέχεται
+      if (/[^a-zA-Z\u0370-\u03ff\u1f00-\u1fff\s]/.test(value)) return;
+    } else if (name === "expiry") {
+      // Μόνο αριθμοί, βάζει αυτόματα την κάθετο (MM/YY)
+      value = value.replace(/\D/g, "").slice(0, 4);
+      if (value.length >= 3) value = value.slice(0, 2) + "/" + value.slice(2);
+    } else if (name === "cvv") {
+      // Μόνο αριθμοί, μέχρι 3 ψηφία
+      value = value.replace(/\D/g, "").slice(0, 3);
+    }
+    setCardDetails({ ...cardDetails, [name]: value });
   };
 
   const handlePayment = () => {
     // Έλεγχος αν όλα τα πεδία της κάρτας είναι συμπληρωμένα αν επιλεγεί πληρωμή με κάρτα
     if (paymentMethod === "card") {
+      // Μικρός επιπλέον έλεγχος ότι ο αριθμός κάρτας έχει το σωστό μήκος (19 chars με τα κενά)
       if (
         !cardDetails.number ||
+        cardDetails.number.length < 19 ||
         !cardDetails.name ||
         !cardDetails.expiry ||
         !cardDetails.cvv
       ) {
-        alert("Παρακαλώ συμπληρώστε τα στοιχεία της κάρτας.");
+        alert("Παρακαλώ συμπληρώστε σωστά τα στοιχεία της κάρτας.");
         return;
       }
     }
